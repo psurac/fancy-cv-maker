@@ -2,9 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import { useState, useEffect } from 'react';
+import NavBar from './components/NavBar';
 
 function App() {
-  const [ data, setData ] = useState();
+  const [ data, setData ] = useState('');
 
   useEffect(() => {
     fetch('/api')
@@ -15,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <NavBar />
         <p>
           {!data ? "Loading..." : data}
         </p>
