@@ -1,6 +1,7 @@
+import { FC } from 'react'
 import './NavBar.scss';
 
-function NavBar() {
+const NavBar: FC = () => {
     return (
         <div className="navbar-container">
             <h3>Fancy CV Maker</h3>

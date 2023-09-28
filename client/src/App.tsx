@@ -1,10 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { FC } from 'react';
 import './App.scss';
 import { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
 
-function App() {
+const App: FC = () => {
   const [ data, setData ] = useState('');
 
   useEffect(() => {
@@ -17,10 +16,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <NavBar />
+      </header>
         <p>
           {!data ? "Loading..." : data}
         </p>
-      </header>
     </div>
   );
 }
