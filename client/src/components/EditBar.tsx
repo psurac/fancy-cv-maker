@@ -1,8 +1,9 @@
 import { FC } from 'react';
+import './EditBar.scss';
 
 const EditBar: FC = () => {
     return (
-        <>EditBar</>
+        <div className="edit-bar-container">EditBar</div>
     );
 };
 

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import './App.scss';
 import { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
+import EditBar from './components/EditBar';
 
 const App: FC = () => {
   const [ data, setData ] = useState('');
@@ -17,6 +18,9 @@ const App: FC = () => {
       <header className="App-header">
         <NavBar />
       </header>
+      <main>
+        <EditBar />
+      </main>
         <p>
           {!data ? "Loading..." : data}
         </p>

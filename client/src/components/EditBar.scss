@@ -1,0 +1,12 @@
+@import '../template.scss';
+
+.edit-bar-container {
+    background-color: $sec3-color;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    padding: 1rem{
+        top: 70px;
+    };
+}
