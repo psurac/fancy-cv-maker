@@ -3,6 +3,7 @@ import './App.scss';
 import { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
 import EditBar from './components/EditBar';
+import CVPage from './components/CVPage';
 
 const App: FC = () => {
   const [ data, setData ] = useState('');
@@ -20,6 +21,7 @@ const App: FC = () => {
       </header>
       <main>
         <EditBar />
+        <CVPage />
       </main>
         <p>
           {!data ? "Loading..." : data}

@@ -9,4 +9,13 @@
     padding: 1rem{
         top: 70px;
     };
+    @include small-screen {
+        width: 100px;
+    }
+    @include medium-screen {
+        width: 200px;
+    }
+    @include large-screen {
+        width: 300px;
+    }
 }
