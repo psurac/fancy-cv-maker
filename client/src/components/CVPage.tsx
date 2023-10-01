@@ -3,7 +3,9 @@ import './CVPage.scss';
 
 const CVPage: FC = () => {
     return (
-        <>CVPAge</>
+        <div className="page">
+            CVPage
+        </div>
     );
 };
 

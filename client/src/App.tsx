@@ -2,8 +2,7 @@ import React, { FC } from 'react';
 import './App.scss';
 import { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
-import EditBar from './components/EditBar';
-import CVPage from './components/CVPage';
+import Main from './pages/Main';
 
 const App: FC = () => {
   const [ data, setData ] = useState('');
@@ -19,10 +18,7 @@ const App: FC = () => {
       <header className="App-header">
         <NavBar />
       </header>
-      <main>
-        <EditBar />
-        <CVPage />
-      </main>
+      <Main />
         <p>
           {!data ? "Loading..." : data}
         </p>

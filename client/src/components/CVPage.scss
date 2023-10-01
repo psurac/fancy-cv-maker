@@ -1,1 +1,11 @@
 @import "../template.scss";
+
+.page {
+    background-color: $sec2-color;
+    width: 598px;
+    height: 842px;
+    margin: 1rem{
+        top: 70px;
+    };
+    padding: 1rem;
+}
