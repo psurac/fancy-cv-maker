@@ -10,6 +10,7 @@ const EditBar: FC = () => {
                     <option value='mac'>Mac</option>
                     <option value='facebook'>Facebook</option>
                 </select>
+                <label htmlFor='style'>CV Style</label>
             </form>
             EditBar
         </div>
