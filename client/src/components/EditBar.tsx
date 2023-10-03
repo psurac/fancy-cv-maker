@@ -8,7 +8,7 @@ const EditBar: FC = () => {
         e.preventDefault();
         if (fetchFunction) {
             fetchFunction('GET', '/cv-style', e.target);
-            console.log("The error is: ");
+            console.log(data);
         }
     }
     return (

@@ -27,23 +27,23 @@ const useFetch = (): FetchReturnType  => {
     useEffect(() => {
         if (!firstRun.current){
             switch(method.current) {
-            case 'GET':
-                fetch(action.current, { method : method.current })
-                .then((response) => response.json())
-                .then((actualData) => setData(actualData))
-                .catch((err) => {
-                    setError(err.message);
-                    console.log(err.message);
-                });
-                break;
-            case 'POST':
-                break;
-            case 'PUT':
-                break;
-            case 'DELETE':
-                break;
-            default:
-                console.error('Given fetch methode is invalid.');}
+                case 'GET':
+                    fetch(action.current, { method : method.current })
+                    .then((response) => response.json())
+                    .then((actualData) => setData(actualData))
+                    .catch((err) => {
+                        setError(err.message);
+                        console.error(err);
+                    });
+                    break;
+                case 'POST':
+                    break;
+                case 'PUT':
+                    break;
+                case 'DELETE':
+                    break;
+                default:
+                    console.error('Given fetch methode is invalid.');}
         } else {
             firstRun.current = false;
         }
