@@ -14,7 +14,7 @@ const useFetch = (): FetchReturnType  => {
     const [trigger, setTrigger] = useState(true)
     const method = useRef<FetchMethod>('GET');
     const action = useRef<Path>('');
-    const formData = useRef<object>({});
+    const formData = useRef<object | string>({});
 
     const fetchFunction = (fetchMethod: FetchMethod = 'GET', fetchAction: Path, fetchFormData : object | string): void => {
         if (fetchMethod !== undefined) {

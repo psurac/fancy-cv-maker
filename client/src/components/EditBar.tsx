@@ -6,9 +6,8 @@ const EditBar: FC = () => {
     const [fetchFunction, data, error] = useFetch();
     const changeHanler = (e: any) => {
         e.preventDefault();
-        if (e.target) {
-            console.log(e.target.value);
-            // fetchFunction('GET', '/cv-style', e.target);
+        if (fetchFunction) {
+            fetchFunction('GET', '/cv-style', e.target);
             console.log("The error is: ");
         }
     }
