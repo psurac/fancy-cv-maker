@@ -3,10 +3,14 @@ import './EditBar.scss';
 import useFetch from '../hooks/useFetch';
 
 const EditBar: FC = () => {
+    const [fetchFunction, data, error] = useFetch();
     const changeHanler = (e: any) => {
         e.preventDefault();
-        const [data, error] = useFetch('GET', "/cv-style" , e.target.value);
-        console.log("The error is: " + error);
+        if (e.target) {
+            console.log(e.target.value);
+            // fetchFunction('GET', '/cv-style', e.target);
+            console.log("The error is: ");
+        }
     }
     return (
         <div className="edit-bar-container">
