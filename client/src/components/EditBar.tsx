@@ -3,11 +3,13 @@ import './EditBar.scss';
 import useFetch from '../hooks/useFetch';
 
 const EditBar: FC = () => {
-    const [fetchFunction, data, error] = useFetch();
-    const changeHanler = (e: any) => {
+    const [fetchFunction, data] = useFetch();
+    const changeHanler = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const formData = new FormData(e.target)
+        console.log(formData);
         if (fetchFunction) {
-            fetchFunction('GET', '/cv-style', e.target);
+            fetchFunction('POST', '/cv-style', formData);
             console.log(data);
         }
     }
