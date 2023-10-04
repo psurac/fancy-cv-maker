@@ -8,8 +8,9 @@ app.get('/api', (req, res) => {
     res.json({message: "Hello from the server"});
 });
 
-app.get('/cv.style', (req, res) => {
-    res.json({message: "Hello there!"})
+app.get('/cv-style', (req, res) => {
+    console.log(req);
+    // res.json({message: "Hello there!"})
 });
 
 app.listen(PORT, () => {

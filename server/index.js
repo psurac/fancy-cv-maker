@@ -9,6 +9,10 @@ const app = (0, express_1.default)();
 app.get('/api', (req, res) => {
     res.json({ message: "Hello from the server" });
 });
+app.get('/cv-style', (req, res) => {
+    console.log(req);
+    // res.json({message: "Hello there!"})
+});
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });

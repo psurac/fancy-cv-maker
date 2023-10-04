@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 
 type FetchReturnType = [
-    fetchFunction?: (fetchMethod: FetchMethod , fetchAction: Path, fetchFormData : object | string) => void,
+    fetchFunction?: (fetchMethod: FetchMethod , fetchAction: Path, fetchFormData : object) => void,
     data?: object,
     error?: string
 ];
@@ -15,9 +15,9 @@ const useFetch = (): FetchReturnType  => {
     const firstRun = useRef(true);
     const method = useRef<FetchMethod>('GET');
     const action = useRef<Path>('');
-    const formData = useRef<object | string>({});
+    const formData = useRef<object>({});
 
-    const fetchFunction = (fetchMethod: FetchMethod = 'GET', fetchAction: Path, fetchFormData : object | string): void => {
+    const fetchFunction = (fetchMethod: FetchMethod = 'GET', fetchAction: Path, fetchFormData : object): void => {
         method.current = fetchMethod;
         action.current = fetchAction;
         formData.current = fetchFormData;
@@ -26,9 +26,15 @@ const useFetch = (): FetchReturnType  => {
 
     useEffect(() => {
         if (!firstRun.current){
+            const requestOptions = {
+                method: method.current,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData.current)
+            };
+
             switch(method.current) {
                 case 'GET':
-                    fetch(action.current, { method : method.current })
+                    fetch(action.current, requestOptions)
                     .then((response) => response.json())
                     .then((actualData) => setData(actualData))
                     .catch((err) => {
