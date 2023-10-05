@@ -1,12 +1,12 @@
 import { FC, useRef } from 'react';
 import './EditBar.scss';
 import useFetch from '../hooks/useFetch';
-import { FetchMethod } from '../types/type';
+import { FetchMethod, Path } from '../types/type';
 
 const EditBar: FC = () => {
     const formElement = useRef<HTMLFormElement | null >(null);
     const [fetchFunction, data] = useFetch();
-    const action : string = '/cv-style';
+    const action : Path = '/cv-style';
     const method : FetchMethod = 'POST';
 
     const submitHandler = (e: React.ChangeEvent<HTMLFormElement>) => {
