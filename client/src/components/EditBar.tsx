@@ -1,19 +1,20 @@
 import { FC, useRef } from 'react';
 import './EditBar.scss';
 import useFetch from '../hooks/useFetch';
+import { FetchMethod } from '../types/type';
 
 const EditBar: FC = () => {
     const formElement = useRef<HTMLFormElement | null >(null);
     const [fetchFunction, data] = useFetch();
-
-    const changeHandler = () => formElement.current?.submit();
+    const action : string = '/cv-style';
+    const method : FetchMethod = 'POST';
 
     const submitHandler = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         console.log(formData);
         if (fetchFunction) {
-            fetchFunction('POST', '/cv-style', formData);
+            fetchFunction(method, action, formData);
             console.log(data);
         }
     }
@@ -23,8 +24,9 @@ const EditBar: FC = () => {
                 ref={formElement}
                 className='select-style'
                 onSubmit={submitHandler}
-                onChange={changeHandler}
-                method='post'
+                onChange={() => formElement.current?.submit()}
+                method={method}
+                action={action}
             >
                 <select name='cv-style' id='cv-style'>
                     <option value='windows'>Windows</option>

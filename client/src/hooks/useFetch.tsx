@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
+import { Path, FetchMethod } from '../types/type';
 
 type FetchReturnType = [
-    fetchFunction?: (fetchMethod: FetchMethod , fetchAction: Path, fetchFormData : object) => void,
+    fetchFunction?: (fetchMethod: FetchMethod , fetchAction: Path, fetchFormData : BodyInit | null | undefined) => void,
     data?: object,
     error?: string
 ];
-type Path = string;
-type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 const useFetch = (): FetchReturnType  => {
     const [data, setData] = useState({});
@@ -19,14 +18,14 @@ const useFetch = (): FetchReturnType  => {
 
     const [requestOptions, setRequestOptions] = useState<RequestInit>();
 
-    const fetchFunction = (fetchMethod: FetchMethod = 'GET', fetchAction: Path, fetchFormData : object): void => {
+    const fetchFunction = (fetchMethod: FetchMethod = 'GET', fetchAction: Path, fetchFormData : BodyInit | null | undefined): void => {
         method.current = fetchMethod;
         action.current = fetchAction;
         // formData.current = fetchFormData;
         setRequestOptions({
             method: fetchMethod,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(fetchFormData)
+            body: fetchFormData
         });
 
         // setTrigger(!trigger);
