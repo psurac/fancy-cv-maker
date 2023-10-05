@@ -30,7 +30,8 @@ const EditBar: FC = () => {
             >
                 <select name='cv-style' id='cv-style'>
                     <option value='windows'>Windows</option>
-                    <option value='mac'>Mac</option>
+                    <option value='linux'>Linux</option>
+                    <option value='github'>GitHub</option>
                     <option value='facebook'>Facebook</option>
                 </select>
                 <label htmlFor='cv-style'>CV Style</label>
