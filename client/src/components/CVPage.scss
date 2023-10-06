@@ -1,6 +1,9 @@
 @import "../template.scss";
 
 .page {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr repeat(12, 2fr) 1fr;
     background-color: $sec2-color;
     width: 598px;
     height: 842px;
@@ -8,4 +11,22 @@
         top: 70px;
     };
     padding: 1rem;
+    gap: 1rem;
+
+    .navbar-element {
+        grid-column-end: span 2;
+        display: null;
+    };
+    .taskbar-element {
+        grid-column-end: span 2;
+        display: null;
+    };
+    /* .box {
+        &:nth-child(odd) {
+            grid-column: 1 / 2;
+        }
+        &:nth-child(even) {
+            grid-column: 2 / 3;
+        }
+    } */
 }
