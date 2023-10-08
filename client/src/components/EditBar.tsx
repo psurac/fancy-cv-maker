@@ -39,7 +39,7 @@ const EditBar: FC<EditBarType> = ({setHtmlElement}) => {
                 <label htmlFor='cv-style'>CV Style</label>
             </form>
             <div className="element-container">
-                <div id="unordertlist" onMouseDown={(e) => setHtmlElement(e.target)}>
+                <div id="unordertlist" onMouseDown={(e) => console.log(e.target)}>
                     <ul>
                         <li>Lorem</li>
                         <li>Lorem</li>
