@@ -1,7 +1,9 @@
-import { FC } from 'react';
+import { FC,ReactNode } from 'react';
 import './CVPage.scss';
 
-const CVPage: FC = () => {
+type CVPageType = {htmlElement: ReactNode | undefined}
+
+const CVPage: FC<CVPageType> = ({htmlElement}) => {
     let gridBoxes: Array<JSX.Element> = Array(2*12).fill('box').map( (name, index) => (
         <div className={name} id={`${name}-${index+1}`}>{name}-{index+1}</div>
     ));
@@ -19,6 +21,9 @@ const CVPage: FC = () => {
             {gridBoxes}
             <div className="taskbar-element">
                 Taskbar Element
+            </div>
+            <div>
+                {htmlElement}
             </div>
         </div>
     );
