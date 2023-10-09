@@ -1,15 +1,17 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC } from 'react';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 import './Main.scss';
 import EditBar from '../components/EditBar';
 import CVPage from '../components/CVPage';
 
 const Main: FC = () => {
-    const [htmlElement, setHtmlElement] = useState<ReactNode>();
-
     return (
         <main className='main'>
-            <EditBar setHtmlElement={setHtmlElement}/>
-            <CVPage htmlElement={htmlElement} />
+            <DndProvider backend={HTML5Backend}>
+                <EditBar />
+                <CVPage />
+            </DndProvider>
         </main>
     );
 };

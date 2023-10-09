@@ -1,11 +1,10 @@
-import { FC, Dispatch, SetStateAction, ReactNode, useRef } from 'react';
+import { FC, useRef } from 'react';
 import './EditBar.scss';
 import useFetch from '../hooks/useFetch';
 import { FetchMethod, Path } from '../types/type';
+import ListUO from '../elements/ListUO';
 
-type EditBarType = {setHtmlElement: Dispatch<SetStateAction<ReactNode | undefined>>};
-
-const EditBar: FC<EditBarType> = ({setHtmlElement}) => {
+const EditBar: FC = () => {
     const formElement = useRef<HTMLFormElement | null >(null);
     const [fetchFunction, data] = useFetch();
     const action : Path = '/cv-style';
@@ -39,11 +38,8 @@ const EditBar: FC<EditBarType> = ({setHtmlElement}) => {
                 <label htmlFor='cv-style'>CV Style</label>
             </form>
             <div className="element-container">
-                <div id="unordertlist" onMouseDown={(e) => console.log(e.target)}>
-                    <ul>
-                        <li>Lorem</li>
-                        <li>Lorem</li>
-                    </ul>
+                <div className="unordertlist">
+                    <ListUO />
                 </div>
             </div>
         </div>
