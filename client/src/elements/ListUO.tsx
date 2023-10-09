@@ -10,12 +10,12 @@ const ListUO: FC = () => {
         })
     }))
     return (
-        <>
-            <ul ref={drag}>
+        <div ref={drag}>
+            <ul>
                 <li>Lorem</li>
                 <li>Lorem2</li>
             </ul>
-        </>
+        </div>
     );
 };
 
