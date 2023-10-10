@@ -4,7 +4,9 @@ import Box from '../elements/Box';
 
 const CVPage: FC= () => {
     let gridBoxes: Array<JSX.Element> = Array(2*12).fill('box').map( (name, index) => (
-        <div className={name} id={`${name}-${index+1}`}><Box prop={`${name}-${index+1}`} /></div>
+        <div className={name} id={`${name}-${index+1}`}>
+            <Box prop={`${name}-${index+1}`} />
+        </div>
     ));
 
     for (let i = 0; i < gridBoxes.length; i += 2) {

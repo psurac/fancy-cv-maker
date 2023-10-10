@@ -3,6 +3,7 @@ import './EditBar.scss';
 import useFetch from '../hooks/useFetch';
 import { FetchMethod, Path } from '../types/type';
 import ListUO from '../elements/ListUO';
+import ElementContainer from './ElementContainer';
 
 const EditBar: FC = () => {
     const formElement = useRef<HTMLFormElement | null >(null);
@@ -37,11 +38,7 @@ const EditBar: FC = () => {
                 </select>
                 <label htmlFor='cv-style'>CV Style</label>
             </form>
-            <div className="element-container">
-                <div className="unordertlist">
-                    <ListUO />
-                </div>
-            </div>
+            <ElementContainer />
         </div>
     );
 };

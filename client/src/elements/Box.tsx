@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, ReactNode, useState, createElement } from 'react';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
+import ListUO from './ListUO';
 
 const Box: FC<any> = ({ prop, children }) => {
     const [item, setItem] = useState<any>();
@@ -18,6 +19,8 @@ const Box: FC<any> = ({ prop, children }) => {
     return (
         <div ref={drop}>
             {prop}
+            <br />
+            {item && createElement(item.item)}
         </div>
     );
 };
