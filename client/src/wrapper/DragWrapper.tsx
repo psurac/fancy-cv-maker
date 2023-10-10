@@ -4,9 +4,10 @@ import { ItemTypes } from '../constants/ItemTypes';
 
 interface DragWrapperType {
     child: ComponentType<any>
+    props?: Object
 }
 
-const DragWrapper: FC<DragWrapperType> = ({ child }) => {
+const DragWrapper: FC<DragWrapperType> = ({ child, props }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
         item: { item: child },
@@ -16,7 +17,7 @@ const DragWrapper: FC<DragWrapperType> = ({ child }) => {
     }))
     return (
         <div ref={drag}>
-            {child && createElement(child)}
+            {child && createElement(child, props)}
         </div>
     );
 };
