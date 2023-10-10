@@ -3,8 +3,10 @@ import { useDrag, DragSourceMonitor } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 
 const ListUO: FC = () => {
+    const test = 'hello';
     const [{isDragging}, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
+        item: { test },
         collect: (monitor: DragSourceMonitor) => ({
             isDragging: !!monitor.isDragging(),
         })
