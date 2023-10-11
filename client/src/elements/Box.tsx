@@ -26,7 +26,7 @@ const Box: FC<any> = ({ prop }) => {
     return (
         <div ref={drop} style={{ backgroundColor: "#FF0000" }}>
             {prop}
-            {item && (
+            {item && item.item &&(
                 <div ref={drag}>
                     {createElement(item.item)}
                 </div>
