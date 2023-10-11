@@ -1,10 +1,10 @@
-import { ComponentType, FC, ReactNode, createElement } from 'react';
+import { ComponentType, FC, createElement, memo } from 'react';
 import { useDrag, DragSourceMonitor } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 
 interface DragWrapperType {
     child: ComponentType<any>
-    props?: Object
+    props?: object
 }
 
 const DragWrapper: FC<DragWrapperType> = ({ child, props }) => {
@@ -22,4 +22,4 @@ const DragWrapper: FC<DragWrapperType> = ({ child, props }) => {
     );
 };
 
-export default DragWrapper;
+export default memo(DragWrapper);

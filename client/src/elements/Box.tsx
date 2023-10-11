@@ -2,8 +2,13 @@ import { FC, useState, createElement, memo } from 'react';
 import { useDrop, useDrag, DragSourceMonitor } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 
-const Box: FC<any> = ({ prop }) => {
+interface BoxType {
+    prop: Object
+}
+
+const Box: FC<BoxType> = ({ prop }) => {
     const [item, setItem] = useState<any>();
+    const [editable, setEditable] = useState<boolean>(false);
     const [, drop] = useDrop<any>(() => ({
         accept: ItemTypes.BOX,
         drop(itemDrag, monitor) {
@@ -24,13 +29,15 @@ const Box: FC<any> = ({ prop }) => {
         })
     }));
     return (
-        <div ref={drop} style={{ backgroundColor: "#FF0000" }}>
+        <div ref={drop} style={{ backgroundColor: "#FF0000" }} contentEditable={editable}>
             {prop}
+            <button type="button" value="delete" onClick={() => setItem(false)} contentEditable="false">Delete</button>
+            <button type="button" value="edit" onClick={() => setEditable(!editable)} contentEditable="false">Edit</button>
             {item && item.item &&(
                 <div ref={drag}>
                     {createElement(item.item)}
                 </div>
-                )}
+            )}
         </div>
     );
 };

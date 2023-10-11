@@ -12,10 +12,10 @@ const ListOL: FC = () => {
     }))
     return (
         <div ref={drag}>
-             <ol>
-            <li>Lorem</li>
-            <li>Lorem2</li>
-        </ol>
+            <ol>
+                <li>Lorem</li>
+                <li>Lorem2</li>
+            </ol>
         </div>
     );
 };

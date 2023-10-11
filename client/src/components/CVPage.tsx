@@ -13,7 +13,7 @@ const CVPage: FC= () => {
 
     for (let i = 0; i < gridBoxes.length; i += 2) {
         [gridBoxes[i], gridBoxes[i+1]] = [gridBoxes[i+1], gridBoxes[i]];
-        console.log(`Swapped elements ${i} and ${i+1}`);
+        /* console.log(`Swapped elements ${i} and ${i+1}`); */
     }
 
     return (
