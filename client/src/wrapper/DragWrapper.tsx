@@ -8,7 +8,7 @@ interface DragWrapperType {
 }
 
 const DragWrapper: FC<DragWrapperType> = ({ child, props }) => {
-    const [_, drag] = useDrag(() => ({
+    const [, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
         item: { item: child },
     }))

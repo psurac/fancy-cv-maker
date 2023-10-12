@@ -1,5 +1,5 @@
-import { FC, useState, createElement, memo } from 'react';
-import { useDrop, useDrag, DragSourceMonitor } from 'react-dnd';
+import { FC, useState, memo } from 'react';
+import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import DragWrapper from '../wrapper/DragWrapper';
 

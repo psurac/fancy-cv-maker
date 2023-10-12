@@ -7,7 +7,6 @@ const CVPage: FC= () => {
     let gridBoxes: Array<JSX.Element> = Array(2*12).fill('box').map( (name, index) => (
         <div className={name} id={`${name}-${index+1}`}>
             <Box prop={`${name}-${index+1}`} />
-            {/* <DragWrapper child={Box} props={{prop: `${name}-${index+1}`}} /> */}
         </div>
     ));
 
