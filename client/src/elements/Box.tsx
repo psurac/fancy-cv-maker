@@ -33,7 +33,7 @@ const Box: FC<BoxType> = ({ prop }) => {
             <button type="button" value="delete" onClick={() => setItem(false)} contentEditable="false">Delete</button>
             <button type="button" value="edit" onClick={() => setEditable(!editable)} contentEditable="false">Edit</button>
             {item && item.item &&(
-                <DragWrapper child={item.item} />
+                <DragWrapper child={item.item} inBox={true} setItem={setItem} />
             )}
         </div>
     );
