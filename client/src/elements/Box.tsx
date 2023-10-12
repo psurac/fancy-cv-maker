@@ -1,4 +1,4 @@
-import { FC, useState, memo } from 'react';
+import { FC, useState, memo, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import DragWrapper from '../wrapper/DragWrapper';
@@ -9,6 +9,7 @@ interface BoxType {
 
 const Box: FC<BoxType> = ({ prop }) => {
     const [item, setItem] = useState<any>();
+    const [key, setKey] = useState<number>(0);
     const [editable, setEditable] = useState<boolean>(false);
     const [, drop] = useDrop<any>(() => ({
         accept: ItemTypes.BOX,
@@ -21,8 +22,13 @@ const Box: FC<BoxType> = ({ prop }) => {
             isOver: !!monitor.isOver(),
         }),
     }));
+
+    useEffect(() => {
+        setKey(key + 1);
+    },[item, setItem]);
+
     return (
-        <div ref={drop} style={{ backgroundColor: "#FF0000" }} contentEditable={editable}>
+        <div ref={drop} key={key} style={{ backgroundColor: "#FF0000" }} contentEditable={editable}>
             {prop}
             <button type="button" value="delete" onClick={() => setItem(false)} contentEditable="false">Delete</button>
             <button type="button" value="edit" onClick={() => setEditable(!editable)} contentEditable="false">Edit</button>
