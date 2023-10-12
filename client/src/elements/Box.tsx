@@ -28,12 +28,12 @@ const Box: FC<BoxType> = ({ prop }) => {
     },[item, setItem]);
 
     return (
-        <div ref={drop} key={key} style={{ backgroundColor: "#FF0000" }} contentEditable={editable}>
+        <div ref={drop} key={key} style={{ backgroundColor: "#FF0000" }}>
             {prop}
-            <button type="button" value="delete" onClick={() => setItem(false)} contentEditable="false">Delete</button>
-            <button type="button" value="edit" onClick={() => setEditable(!editable)} contentEditable="false">Edit</button>
+            <button type="button" value="delete" onClick={() => setItem(false)}>Delete</button>
+            <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>
             {item && item.item &&(
-                <DragWrapper child={item.item} inBox={true} setItem={setItem} />
+                <DragWrapper child={item.item} inBox={true} editable={editable} setItem={setItem} />
             )}
         </div>
     );
