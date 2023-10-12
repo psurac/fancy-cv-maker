@@ -9,7 +9,7 @@ const ElementContainer: FC = () => {
         <div>
             <DragWrapper child={ListUO} />
             <DragWrapper child={Image} />
-            <ListOL />
+            <DragWrapper child={ListOL} />
         </div>
     );
 };

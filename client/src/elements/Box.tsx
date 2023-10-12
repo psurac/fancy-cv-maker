@@ -1,6 +1,7 @@
 import { FC, useState, createElement, memo } from 'react';
 import { useDrop, useDrag, DragSourceMonitor } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
+import DragWrapper from '../wrapper/DragWrapper';
 
 interface BoxType {
     prop: Object
@@ -20,23 +21,13 @@ const Box: FC<BoxType> = ({ prop }) => {
             isOver: !!monitor.isOver(),
         }),
     }));
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: ItemTypes.BOX,
-        item: { item: item },
-        canDrag: item,
-        collect: (monitor: DragSourceMonitor) => ({
-            isDragging: !!monitor.isDragging(),
-        })
-    }));
     return (
         <div ref={drop} style={{ backgroundColor: "#FF0000" }} contentEditable={editable}>
             {prop}
             <button type="button" value="delete" onClick={() => setItem(false)} contentEditable="false">Delete</button>
             <button type="button" value="edit" onClick={() => setEditable(!editable)} contentEditable="false">Edit</button>
             {item && item.item &&(
-                <div ref={drag}>
-                    {createElement(item.item)}
-                </div>
+                <DragWrapper child={item.item} />
             )}
         </div>
     );

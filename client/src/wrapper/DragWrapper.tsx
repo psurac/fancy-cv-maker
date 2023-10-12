@@ -8,12 +8,9 @@ interface DragWrapperType {
 }
 
 const DragWrapper: FC<DragWrapperType> = ({ child, props }) => {
-    const [{ isDragging }, drag] = useDrag(() => ({
+    const [_, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
         item: { item: child },
-        collect: (monitor: DragSourceMonitor) => ({
-            isDragging: !!monitor.isDragging(),
-        })
     }))
     return (
         <div ref={drag}>
