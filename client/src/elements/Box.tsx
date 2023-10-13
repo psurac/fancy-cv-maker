@@ -15,7 +15,8 @@ const Box: FC<BoxType> = ({ prop }) => {
         accept: ItemTypes.BOX,
         drop(itemDrag, monitor) {
             console.log(typeof(itemDrag));
-            console.log(itemDrag)
+            console.log(itemDrag);
+            console.log(itemDrag.item.toString());
             setItem(itemDrag);
         },
         collect: monitor => ({
@@ -33,7 +34,7 @@ const Box: FC<BoxType> = ({ prop }) => {
             <button type="button" value="delete" onClick={() => setItem(false)}>Delete</button>
             <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>
             {item && item.item &&(
-                <DragWrapper child={item.item} inBox={true} editable={editable} setItem={setItem} />
+                <DragWrapper child={item.item} inBox={true} editable={editable} item={item} setItem={setItem} />
             )}
         </div>
     );
