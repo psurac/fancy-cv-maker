@@ -1,37 +1,44 @@
-import { ComponentType, Dispatch, FC, FocusEventHandler, createElement, memo, useCallback } from 'react';
-import { useDrag, DragSourceMonitor } from 'react-dnd';
+import { ComponentType, Dispatch, FC, FocusEventHandler, useState } from 'react';
+import { createElement, memo, useCallback, useEffect } from 'react';
+import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
-import { Parser } from 'html-to-react'
+import { GenElementType } from '../types/type';
 
 interface DragWrapperType {
-    child: ComponentType<any>
+    child: GenElementType
     props?: object
     inBox?: boolean
     editable?: boolean
-    item?: object
+    item?: ComponentType<any> | FC<any> | string
     setItem?: Dispatch<any>
 }
 
 const DragWrapper: FC<DragWrapperType> = (
     { child, props, inBox = false, editable = false, item, setItem }
 ) => {
+    let NewComp: GenElementType;
+
     const [, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
-        item: { item: child },
+        item: { child },
         options: {
             dropEffect: inBox ? 'move' : 'copy'
         },
         end: (_, monitor) => {
-            monitor.didDrop() && inBox && setItem && setItem(false)
+            monitor.didDrop() && inBox && setItem && setItem('')
         }
     }))
 
+    useEffect(() => {
+        console.log(typeof(child));
+        console.log(child);
+    },[])
+
     const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
-        console.log(event.currentTarget.innerHTML)
-        const jsxElement = Parser().parse(event.currentTarget.innerHTML)
-        console.log(jsxElement)
-        console.log(jsxElement.toString())
-        editable && setItem && setItem(jsxElement/* {item: jsxElement.toString()}*/);
+        const innerHTML = event.currentTarget.innerHTML;
+        NewComp = () => {return <>{innerHTML}</>}
+        // editable && setItem && setItem(jsxElement);
+        editable && setItem && setItem(() => NewComp);
     }, [editable]);
 
     return (
