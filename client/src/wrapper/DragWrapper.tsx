@@ -35,6 +35,7 @@ const DragWrapper: FC<DragWrapperType> = (
     },[])
 
     const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
+        const parser = new DOMParser();
         const innerHTML = event.currentTarget.innerHTML;
         NewComp = () => {return <>{innerHTML}</>}
         // editable && setItem && setItem(jsxElement);

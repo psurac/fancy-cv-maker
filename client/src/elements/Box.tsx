@@ -1,4 +1,4 @@
-import { FC, useState, memo, useEffect, ComponentType } from 'react';
+import { FC, useState, memo, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import DragWrapper from '../wrapper/DragWrapper';
