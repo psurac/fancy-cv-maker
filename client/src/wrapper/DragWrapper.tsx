@@ -3,6 +3,7 @@ import { createElement, memo, useCallback, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import { GenElementType } from '../types/type';
+import { Parser } from 'html-to-react'
 
 interface DragWrapperType {
     child: GenElementType
@@ -35,10 +36,11 @@ const DragWrapper: FC<DragWrapperType> = (
     },[])
 
     const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
-        const parser = new DOMParser();
         const innerHTML = event.currentTarget.innerHTML;
+        const reactComp = Parser().parse(innerHTML);
+        console.log(typeof(reactComp));
+        console.log(reactComp);
         NewComp = () => {return <>{innerHTML}</>}
-        // editable && setItem && setItem(jsxElement);
         editable && setItem && setItem(() => NewComp);
     }, [editable]);
 
