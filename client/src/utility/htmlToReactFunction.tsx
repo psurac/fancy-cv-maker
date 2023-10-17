@@ -1,5 +1,8 @@
 import { FC, createElement } from 'react'
 
+type propsObj = {
+    [key: string]: string
+} | null
 
 const htmlNameTag: (htmlFrag: string) => string = (htmlFrag) => {
     let tagName: string = '';
@@ -11,7 +14,15 @@ const htmlNameTag: (htmlFrag: string) => string = (htmlFrag) => {
 }
 
 const propsToObject: (props: string) => Object = (props) => {
-    return {};
+    let propsObj: propsObj = {};
+    const propsNames: RegExpMatchArray | null = props.match(/(?<=\s)[-a-zA-Z0-9_]+(?=\=)/);
+    const propsValues: RegExpMatchArray | null = props.match(/(?<=[\'\"\`\{])[\s-a-zA-Z0-9_]*(?=[\'\"\`\}])/)
+    if (propsNames && propsValues && propsNames.length === propsValues.length) {
+        for (let i = 0; i < propsNames.length; i++) {
+            propsObj[propsNames[i]] = propsValues[i];
+        }
+    }
+    return propsObj;
 };
 
 const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
