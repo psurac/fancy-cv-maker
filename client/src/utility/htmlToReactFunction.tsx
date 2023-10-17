@@ -25,7 +25,28 @@ const propsToObject: (props: string) => Object = (props) => {
     return propsObj;
 };
 
+const htmlTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
+
+    return [];
+}
+
 const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
+    // Return if htmlFragment empty or there are no < in there
+    if (!htmlFrag.includes('<')) return [htmlFrag];
+    // Take text before and behind the tag and seperate it
+    const indexStartTag = htmlFrag.indexOf('<');
+    const indexCloseTag = htmlFrag.lastIndexOf('>');
+    const textBefore: string = htmlFrag.substring(0, indexStartTag);
+    const textAfter: string = htmlFrag.substring(indexCloseTag + 1);
+    htmlFrag = htmlFrag.substring(indexStartTag, indexCloseTag + 1);
+    // Check if there are siblings in htmlFragment
+        // If yes split it intu seperate Fragments in an array
+        // Else just put the htmlFragment in an array
+    // Loop over the given array
+        // Split each element in the front Tag and the innerHtml
+        // Give the front Tag to htmlNameTag and propsToObject
+        // give the innerHtml to childCreator
+        // write all in the return Array
     return [];
 };
 
