@@ -5,24 +5,18 @@ type propsObj = {
 } | null
 
 const htmlNameTag: (htmlFrag: string) => string = (htmlFrag) => {
-    let tagName: string = '';
     if (htmlFrag === '<>') {
         return 'div';
     }
-    const htmlSplitted = htmlFrag.split(' ')
-    if (htmlSplitted.length > 1) {
-        tagName = htmlSplitted[0].slice(1);
-    }
-    else {
-        tagName = htmlSplitted[0].slice(1, htmlSplitted[0].length - 1);
-    }
-    return tagName;
+    return htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=\<)(?<=\w+)[\s>]/));
 }
 
 const propsToObject: (props: string) => Object = (props) => {
+    props = props.substring(0, props.indexOf('>') + 1);
     let propsObj: propsObj = {};
     const propsNames: RegExpMatchArray | null = props.match(/(?<=\s)[-a-zA-Z0-9_]+(?=\=)/);
     const propsValues: RegExpMatchArray | null = props.match(/(?<=[\'\"\`\{])[\s-a-zA-Z0-9_]*(?=[\'\"\`\}])/);
+    // TODO Checking for special probs there maied be no Value, and add it
     if (propsNames && propsValues && propsNames.length === propsValues.length) {
         for (let i = 0; i < propsNames.length; i++) {
             propsObj[propsNames[i]] = propsValues[i];
@@ -31,12 +25,12 @@ const propsToObject: (props: string) => Object = (props) => {
     return propsObj;
 };
 
-const htmlTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
+const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
     let siblingIndexes: number[] = [];
     // Tack the starting tagName, set counterTags to 1, absolutIndex to 0
     let absolutIndex: number = 0; // keap track on the absolut position wher htmlFrag is cuted
     let counterTags: number = 0;
-    let tagName: string = htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=\<)(?<=\w+)[\s>]/));
+    let tagName: string = htmlNameTag(htmlFrag);
     if (tagName.length > 0) {
         counterTags = 1;
     } else {
@@ -50,6 +44,7 @@ const htmlTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
 
     // Search for ocurency of tagName in string
     while (tagName.length > 0) {
+        //
         let emargencyBreak: number = 0;
         const regExp: RegExp = new RegExp(`/(?<=[</]${tagName}/`)
         while (true) {
@@ -80,7 +75,7 @@ const htmlTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
         // If counterTags is 0 get the actual index and add it to the array
         siblingIndexes.push(absolutIndex);
         // Serach for new tagName and start loop again
-        tagName = htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=\<)(?<=\w+)[\s>]/));
+        tagName = htmlNameTag(htmlFrag);
     }
     return siblingIndexes;
 }
@@ -96,7 +91,12 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     const textBefore: string = htmlFrag.substring(0, indexStartTag);
     const textAfter: string = htmlFrag.substring(indexCloseTag + 1);
     htmlFrag = htmlFrag.substring(indexStartTag, indexCloseTag + 1);
+    const tagName: string = htmlNameTag(htmlFrag);
+    const siblingIndexes: number[] = siblingTagSearchHelper(htmlFrag);
     // Check if there are siblings in htmlFragment
+    if (siblingIndexes.length === 1 && siblingIndexes[0] === -1) {
+        return [textBefore, createElement(tagName, ), textAfter]
+    }
         // If yes split it intu seperate Fragments in an array
         // Else just put the htmlFragment in an array
     // Loop over the given array
