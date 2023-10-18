@@ -27,7 +27,7 @@ const propsToObject: (props: string) => Object = (props) => {
 
 const htmlTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
     // Tack the starting tagName, set counterTags to 1, absolutIndex to 0
-    let absolutIndex: number = 0;
+    let absolutIndex: number = 0; // keap track on the absolut position wher htmlFrag is cuted
     let counterTags: number = 0;
     let tagName: string = htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=\<)(?<=\w+)[\s>]/));
     if (tagName.length > 0) {
@@ -35,12 +35,32 @@ const htmlTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
     } else {
         return [0]
     }
+    absolutIndex = htmlFrag.indexOf(tagName) + tagName.length;
+    htmlFrag = htmlFrag.substring(absolutIndex);
     // Search for ocurency of tagName in string
-        // If it is </${tagName} substract -1 from counter
-        // If it is <${tagName} add +1 to counter
+    while (tagName.length > 0) {
+        let emargencyBreak: number = 0;
+        const regExp: RegExp = new RegExp(`/(?<=[</]${tagName}/`)
+        while (true) {
+            const indexCurrentTag: number = htmlFrag.search(regExp);
+            const indexAfterTag: number = indexCurrentTag + tagName.length;
+            const charBeforeTag: string | undefined = htmlFrag.at(indexCurrentTag - 1);
+            absolutIndex += indexAfterTag;
+            htmlFrag = htmlFrag.substring(indexAfterTag);
+
+            // If it is </${tagName} substract -1 from counterTags
+            if (charBeforeTag === '/') counterTags--;
+            // If counterTags gets 0 leave the loop
+            if (counterTags === 0) break;
+            // If it is <${tagName} add +1 to counter
+            if (charBeforeTag === '<') counterTags++;
+            if (emargencyBreak > 50 || !charBeforeTag) return [-1];
+            emargencyBreak++;
+        }
         // If counterTags is 0 get the actual index and add it to array
         // Update absolutIndex and slice the htmlFrag
         // Serach for new tagName and start loop again
+    }
     return [];
 }
 
