@@ -44,7 +44,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
 
     // Search for ocurency of tagName in string
     while (tagName.length > 0) {
-        //
+        // TODO add a way to handl tags who has no closing tag
         let emargencyBreak: number = 0;
         const regExp: RegExp = new RegExp(`/(?<=[</]${tagName}/`)
         while (true) {
@@ -92,10 +92,11 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     const textAfter: string = htmlFrag.substring(indexCloseTag + 1);
     htmlFrag = htmlFrag.substring(indexStartTag, indexCloseTag + 1);
     const tagName: string = htmlNameTag(htmlFrag);
+    const props: object = propsToObject(htmlFrag);
     const siblingIndexes: number[] = siblingTagSearchHelper(htmlFrag);
     // Check if there are siblings in htmlFragment
     if (siblingIndexes.length === 1 && siblingIndexes[0] === -1) {
-        return [textBefore, createElement(tagName, ), textAfter]
+        return [textBefore, createElement(tagName, props, `Error occured in ${tagName} by searching for sibblings`), textAfter]
     }
         // If yes split it intu seperate Fragments in an array
         // Else just put the htmlFragment in an array
