@@ -26,11 +26,19 @@ const propsToObject: (props: string) => Object = (props) => {
 };
 
 const htmlTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
-    // Tag the starting tagName, set counter to 1, absolutIndex to 0
+    // Tack the starting tagName, set counterTags to 1, absolutIndex to 0
+    let absolutIndex: number = 0;
+    let counterTags: number = 0;
+    let tagName: string = htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=\<)(?<=\w+)[\s>]/));
+    if (tagName.length > 0) {
+        counterTags = 1;
+    } else {
+        return [0]
+    }
     // Search for ocurency of tagName in string
         // If it is </${tagName} substract -1 from counter
         // If it is <${tagName} add +1 to counter
-        // If counter is 0 get the actual index and add it to array
+        // If counterTags is 0 get the actual index and add it to array
         // Update absolutIndex and slice the htmlFrag
         // Serach for new tagName and start loop again
     return [];
