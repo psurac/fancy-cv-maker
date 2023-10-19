@@ -90,22 +90,39 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     const indexCloseTag = htmlFrag.lastIndexOf('>');
     const textBefore: string = htmlFrag.substring(0, indexStartTag);
     const textAfter: string = htmlFrag.substring(indexCloseTag + 1);
+    // Remove the text from before and behind, only html within the tag will remain
     htmlFrag = htmlFrag.substring(indexStartTag, indexCloseTag + 1);
     const tagName: string = htmlNameTag(htmlFrag);
     const props: object = propsToObject(htmlFrag);
     const siblingIndexes: number[] = siblingTagSearchHelper(htmlFrag);
     // Check if there are siblings in htmlFragment
+    // Check for errors
     if (siblingIndexes.length === 1 && siblingIndexes[0] === -1) {
-        return [textBefore, createElement(tagName, props, `Error occured in ${tagName} by searching for sibblings`), textAfter]
+        return [
+            textBefore,
+            createElement(tagName, props, `Error occured in ${tagName} by searching for sibblings`),
+            textAfter
+        ]
     }
-        // If yes split it intu seperate Fragments in an array
-        // Else just put the htmlFragment in an array
-    // Loop over the given array
+    // If not just put the htmlFragment in an array
+    if (siblingIndexes.length === 1) {
+        return [
+            textBefore,
+            createElement(tagName, props, childCreator(htmlFrag.substring(htmlFrag.indexOf('>'),htmlFrag.lastIndexOf('</')))), 
+            textAfter
+        ]
+    }
+    // Built up the child array
+    let child: string[] = [textBefore]; // Adding the text before
+    // loop over the given indexes and add each sibbling seperately to the child array
+    for (let index of siblingIndexes) {
         // Split each element in the front Tag and the innerHtml
         // Give the front Tag to htmlNameTag and propsToObject
         // give the innerHtml to childCreator
         // write all in the return Array
-    return [];
+    }
+    child.push(textAfter)
+    return child;
 };
 
 const NewComp: (html: string) => JSX.Element = (html: string) => {
