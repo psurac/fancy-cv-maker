@@ -1,4 +1,4 @@
-import { FC, createElement } from 'react'
+import { DOMElement, FC, createElement } from 'react'
 
 type propsObj = {
     [key: string]: string
@@ -112,14 +112,35 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
             textAfter
         ]
     }
+    // Split the htmlFrag into it's siblings
+    let siblings: string[] = [];
+    for (let i = 0; i < siblingIndexes.length; i++) {
+        if (i === 0) {
+            siblings.push(htmlFrag.substring(0, siblingIndexes[i]));
+        } else if (i < siblingIndexes.length - 1) {
+            siblings.push(htmlFrag.substring(siblingIndexes[i - 1], siblingIndexes[i]));
+        } else {
+            siblings.push(htmlFrag.substring(siblingIndexes[i - 1], siblingIndexes[i]));
+            siblings.push(htmlFrag.substring(siblingIndexes[i]));
+        }
+    }
     // Built up the child array
-    let child: string[] = [textBefore]; // Adding the text before
+    let child: Array<string | DOMElement<Object, Element>> = [textBefore]; // Adding the text before
     // loop over the given indexes and add each sibbling seperately to the child array
-    for (let index of siblingIndexes) {
+    for (let sibling of siblings) {
+        // Add eventuell occured Text at the beginning to the child array
+        child.push(sibling.substring(0, sibling.indexOf('<')));
         // Split each element in the front Tag and the innerHtml
+        const frontTag: string = sibling.substring(sibling.indexOf('<'), sibling.indexOf('>') + 1);
+        const innerHtml: string = sibling.substring(sibling.indexOf('>') + 1, sibling.lastIndexOf('<'));
         // Give the front Tag to htmlNameTag and propsToObject
         // give the innerHtml to childCreator
         // write all in the return Array
+        child.push(createElement(
+            htmlNameTag(frontTag),
+            propsToObject(frontTag),
+            childCreator(innerHtml)
+        ));
     }
     child.push(textAfter)
     return child;
