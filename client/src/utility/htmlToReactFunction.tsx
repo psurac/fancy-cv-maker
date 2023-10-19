@@ -1,5 +1,13 @@
 import { DOMElement, FC, createElement } from 'react'
 
+/*
+This Function translate a html string into a React component Function,
+and return it.
+*/
+const htmlToReactFunction = (html: string) => {
+    return NewComp(html);
+};
+
 type propsObj = {
     [key: string]: string
 } | null
@@ -46,7 +54,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
     while (tagName.length > 0) {
         // TODO add a way to handl tags who has no closing tag
         let emargencyBreak: number = 0;
-        const regExp: RegExp = new RegExp(`/(?<=[</]${tagName}/`)
+        const regExp: RegExp = new RegExp(`/(?<=[</])${tagName}/`)
         while (true) {
             const indexCurrentTag: number = htmlFrag.search(regExp);
             const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 2;
@@ -159,12 +167,5 @@ const NewComp: (html: string) => JSX.Element = (html: string) => {
     </>
 )}
 
-/*
-This Function translate a html string into a React component Function,
-and return it.
-*/
-const htmlToReactFunction = (html: string) => {
-    return NewComp(html);
-};
 
 export default htmlToReactFunction;

@@ -1,9 +1,10 @@
-import { ComponentType, Dispatch, FC, FocusEventHandler, useState } from 'react';
+import { ComponentType, Dispatch, FC, FocusEventHandler, ReactElement, useState } from 'react';
 import { createElement, memo, useCallback, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import { GenElementType } from '../types/type';
 import { Parser } from 'html-to-react'
+import htmlToReactFunction from '../utility/htmlToReactFunction';
 
 interface DragWrapperType {
     child: GenElementType
@@ -17,7 +18,7 @@ interface DragWrapperType {
 const DragWrapper: FC<DragWrapperType> = (
     { child, props, inBox = false, editable = false, item, setItem }
 ) => {
-    let NewComp: GenElementType;
+    let NewComp: ReactElement<any, any>;
 
     const [, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
@@ -38,10 +39,10 @@ const DragWrapper: FC<DragWrapperType> = (
     const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
         const innerHTML = event.currentTarget.innerHTML;
         const reactComp = Parser().parse(innerHTML);
-        console.log(typeof(reactComp));
-        console.log(reactComp);
-        NewComp = () => {return <>{innerHTML}</>}
-        editable && setItem && setItem(() => NewComp);
+        NewComp = htmlToReactFunction(innerHTML)
+        console.log(typeof(NewComp));
+        console.log(NewComp);
+        editable && setItem && setItem(NewComp);
     }, [editable]);
 
     return (
