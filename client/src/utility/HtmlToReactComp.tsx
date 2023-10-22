@@ -5,14 +5,13 @@ import { DOMElement, FC, createElement } from 'react'
 This Component takes an html string and builds itself out of it out of it
 */
 const HtmlToReactComp: FC<{html:string}> = ({html}) => {
-    /* html = html.trim();
+    html = html.trim();
     const mainHtml = html.slice(0, html.indexOf('>') + 1);
     let mainHtmlTag: string = htmlNameTag(mainHtml);
     let mainHtmlTagProps: object = propsToObject(mainHtml);
     let childArray: any[] = childCreator(html.slice(html.indexOf('>') + 1));
 
-    return createElement(mainHtmlTag, mainHtmlTagProps, childArray) */
-    return <h1>{html}</h1>
+    return createElement(mainHtmlTag, mainHtmlTagProps, childArray);
 }
 
 type propsObj = {
@@ -23,7 +22,7 @@ const htmlNameTag: (htmlFrag: string) => string = (htmlFrag) => {
     if (htmlFrag === '<>') {
         return 'div';
     }
-    return htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=\<)(?<=\w+)[\s>]/));
+    return htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=<\w+)[\s>]/));
 }
 
 const propsToObject: (props: string) => Object = (props) => {

@@ -29,6 +29,7 @@ const Box: FC<BoxType> = ({ prop }) => {
 
     useEffect(() => {
         setKey(key + 1);
+        innerHtml && console.log(HtmlToReactComp({html: innerHtml}));
     },[item, setItem, innerHtml]);
 
     return (
@@ -37,7 +38,7 @@ const Box: FC<BoxType> = ({ prop }) => {
             <button type="button" value="delete" onClick={() => setItem('')}>Delete</button>
             <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>
             {innerHtml ? (
-                <DragWrapper child={() => HtmlToReactComp({html: 'hallo'})} inBox={true} editable={editable} setItem={setItem} setInnerHtml={setInnerHtml} />
+                <DragWrapper child={() => HtmlToReactComp({html: innerHtml})} inBox={true} editable={editable} setItem={setItem} setInnerHtml={setInnerHtml} />
             ) : item && (
                 <DragWrapper child={item} inBox={true} editable={editable} setItem={setItem} setInnerHtml={setInnerHtml} />
             )}
