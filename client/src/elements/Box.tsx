@@ -3,6 +3,7 @@ import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import DragWrapper from '../wrapper/DragWrapper';
 import { GenElementType } from '../types/type';
+import HtmlToReactComp from '../utility/HtmlToReactComp';
 
 interface BoxType {
     prop: any
@@ -12,6 +13,7 @@ const Box: FC<BoxType> = ({ prop }) => {
     const [item, setItem] = useState<GenElementType>();
     const [key, setKey] = useState<number>(0);
     const [editable, setEditable] = useState<boolean>(false);
+    const [innerHtml, setInnerHtml] = useState<string>('');
     const [, drop] = useDrop<any>(() => ({
         accept: ItemTypes.BOX,
         drop(itemDrag, monitor) {
@@ -27,15 +29,17 @@ const Box: FC<BoxType> = ({ prop }) => {
 
     useEffect(() => {
         setKey(key + 1);
-    },[item, setItem]);
+    },[item, setItem, innerHtml]);
 
     return (
         <div ref={drop} key={key} style={{ backgroundColor: "#FF0000" }}>
             {prop}
             <button type="button" value="delete" onClick={() => setItem('')}>Delete</button>
             <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>
-            {item && (
-                <DragWrapper child={item} inBox={true} editable={editable} item={item} setItem={setItem} />
+            {innerHtml ? (
+                <DragWrapper child={() => HtmlToReactComp({html: 'hallo'})} inBox={true} editable={editable} setItem={setItem} setInnerHtml={setInnerHtml} />
+            ) : item && (
+                <DragWrapper child={item} inBox={true} editable={editable} setItem={setItem} setInnerHtml={setInnerHtml} />
             )}
         </div>
     );

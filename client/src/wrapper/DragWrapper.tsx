@@ -1,24 +1,22 @@
-import { ComponentType, Dispatch, FC, FocusEventHandler, ReactElement, useState } from 'react';
+import { ComponentType, Dispatch, FC, FocusEventHandler, SetStateAction } from 'react';
 import { createElement, memo, useCallback, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import { GenElementType } from '../types/type';
 import { Parser } from 'html-to-react'
-import htmlToReactFunction from '../utility/htmlToReactFunction';
 
 interface DragWrapperType {
     child: GenElementType
     props?: object
     inBox?: boolean
     editable?: boolean
-    item?: ComponentType<any> | FC<any> | string
     setItem?: Dispatch<any>
+    setInnerHtml?: Dispatch<SetStateAction<string>>
 }
 
 const DragWrapper: FC<DragWrapperType> = (
-    { child, props, inBox = false, editable = false, item, setItem }
+    { child, props, inBox = false, editable = false, setItem, setInnerHtml }
 ) => {
-    let NewComp: ReactElement<any, any>;
 
     const [, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
@@ -27,7 +25,8 @@ const DragWrapper: FC<DragWrapperType> = (
             dropEffect: inBox ? 'move' : 'copy'
         },
         end: (_, monitor) => {
-            monitor.didDrop() && inBox && setItem && setItem('')
+            monitor.didDrop() && inBox && setItem && setItem('');
+            monitor.didDrop() && inBox && setInnerHtml && setInnerHtml('');
         }
     }))
 
@@ -37,12 +36,7 @@ const DragWrapper: FC<DragWrapperType> = (
     },[])
 
     const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
-        const innerHTML = event.currentTarget.innerHTML;
-        const reactComp = Parser().parse(innerHTML);
-        NewComp = htmlToReactFunction(innerHTML)
-        console.log(typeof(NewComp));
-        console.log(NewComp);
-        editable && setItem && setItem(NewComp);
+        setInnerHtml && (setInnerHtml(event.currentTarget.innerHTML));
     }, [editable]);
 
     return (
