@@ -30,10 +30,10 @@ const DragWrapper: FC<DragWrapperType> = (
         }
     }))
 
-    useEffect(() => {
+    /* useEffect(() => {
         console.log(typeof(child));
         console.log(child);
-    },[])
+    },[]) */
 
     const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
         console.log(event.currentTarget.innerHTML);

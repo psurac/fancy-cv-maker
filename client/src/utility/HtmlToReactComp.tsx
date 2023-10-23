@@ -60,7 +60,8 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
     while (tagName.length > 0) {
         // TODO add a way to handl tags who has no closing tag
         let emargencyBreak: number = 0;
-        const regExp: RegExp = new RegExp(`/(?<=[</])${tagName}/`)
+        const regExp: RegExp = new RegExp(`(?<=[</])${tagName}`)
+        console.log(`RegExp: ${regExp}`);
         while (true) {
             const indexCurrentTag: number = htmlFrag.search(regExp);
             const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 2;
@@ -68,6 +69,9 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
             // Update absolutIndex and slice the htmlFrag
             absolutIndex += indexAfterClosingTag;
             htmlFrag = htmlFrag.substring(indexAfterClosingTag);
+
+            console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
+            console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
 
             // If it is </${tagName} substract -1 from counterTags
             if (charBeforeTag === '/') {
@@ -81,7 +85,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
             if (charBeforeTag === '<') {
                 counterTags++;
             }
-            if (emargencyBreak > 50 || !charBeforeTag) {
+            if (emargencyBreak > 20 || !charBeforeTag) {
                 return [-1];
             }
             emargencyBreak++;
@@ -109,6 +113,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     const tagName: string = htmlNameTag(htmlFrag);
     const props: object = propsToObject(htmlFrag);
     const siblingIndexes: number[] = siblingTagSearchHelper(htmlFrag);
+    console.log(`siblingTagSearchHelper returns: ${siblingIndexes}, while htmlFrag is: ${htmlFrag}`);
     // Check if there are siblings in htmlFragment
     // Check for errors
     if (siblingIndexes.length === 1 && siblingIndexes[0] === -1) {
