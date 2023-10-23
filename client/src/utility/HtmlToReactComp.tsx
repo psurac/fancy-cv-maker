@@ -84,8 +84,8 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
             absolutIndex += indexAfterClosingTag;
             htmlFrag = htmlFrag.substring(indexAfterClosingTag);
 
-            // console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
-            // console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
+            console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
+            console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
 
             // If it is </${tagName} substract -1 from counterTags
             if (charBeforeTag === '/') {

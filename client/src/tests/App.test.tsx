@@ -13,3 +13,9 @@ test ('render style Selector', () => {
   const styleSelectorElement = screen.getByLabelText(/CV Style/);
   expect(styleSelectorElement).toBeInTheDocument();
 })
+
+test ('render CVPages', () => {
+  render(<App />);
+  const cvPageSelectorElement = screen.getByTestId(/cv-page/);
+  expect(cvPageSelectorElement).toBeInTheDocument();
+})

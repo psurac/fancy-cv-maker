@@ -16,7 +16,7 @@ const CVPage: FC= () => {
     }
 
     return (
-        <div className="page">
+        <div className="page" data-testid="cv-page">
             <div className="navbar-element">
                 Navbar Element
             </div>
