@@ -18,11 +18,24 @@ type propsObj = {
     [key: string]: string
 } | null
 
+// Getting a substring of the htmlFrag, returning the start Tag name.
 const htmlNameTag: (htmlFrag: string) => string = (htmlFrag) => {
     if (htmlFrag === '<>') {
         return 'div';
     }
-    return htmlFrag.substring(htmlFrag.search(/[<]/) + 1, htmlFrag.search(/(?<=<\w+)[\s>]/));
+    const regExpStart: RegExp = new RegExp(/[<](?!\/)/);
+    const regExpEnd: RegExp = new RegExp(/(?<=[<\w+])[\s>]/);
+    let indexStart: number = htmlFrag.search(regExpStart) + 1;
+    let indexEnd: number = htmlFrag.search(regExpEnd);
+    while (indexStart > indexEnd) {
+        htmlFrag = htmlFrag.substring(indexEnd);
+        indexStart = htmlFrag.search(regExpStart) + 1;
+        indexEnd = htmlFrag.search(regExpEnd);
+        if (indexEnd === -1) {
+            return '';
+        }
+    }
+    return htmlFrag.substring(indexStart, indexEnd);
 }
 
 const propsToObject: (props: string) => Object = (props) => {
@@ -61,7 +74,8 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
         // TODO add a way to handl tags who has no closing tag
         let emargencyBreak: number = 0;
         const regExp: RegExp = new RegExp(`(?<=[</])${tagName}`)
-        console.log(`RegExp: ${regExp}`);
+        console.log(`htmlFrag: ${htmlFrag}`);
+        console.log(`tagName: ${tagName}`);
         while (true) {
             const indexCurrentTag: number = htmlFrag.search(regExp);
             const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 2;
@@ -70,8 +84,8 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
             absolutIndex += indexAfterClosingTag;
             htmlFrag = htmlFrag.substring(indexAfterClosingTag);
 
-            console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
-            console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
+            // console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
+            // console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
 
             // If it is </${tagName} substract -1 from counterTags
             if (charBeforeTag === '/') {
