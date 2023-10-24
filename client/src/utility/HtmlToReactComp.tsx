@@ -53,6 +53,7 @@ const propsToObject: (props: string) => Object = (props) => {
 };
 
 const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
+    const htmlFragLength: number = htmlFrag.length;
     let siblingIndexes: number[] = [];
     // Tack the starting tagName, set counterTags to 1, absolutIndex to 0
     let absolutIndex: number = 0; // keap track on the absolut position wher htmlFrag is cuted
@@ -65,7 +66,9 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
     }
 
     let tagIndex: number = htmlFrag.indexOf(tagName);
-    if (tagIndex > 0) siblingIndexes.push(tagIndex);
+    if (tagIndex > 0) {
+        siblingIndexes.push(tagIndex);
+    }
     absolutIndex = tagIndex + tagName.length;
     htmlFrag = htmlFrag.substring(absolutIndex);
 
@@ -106,7 +109,10 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
             console.log(`conterTags: ${counterTags}`);
         }
         // If counterTags is 0 get the actual index and add it to the array
-        siblingIndexes.push(absolutIndex);
+        // Ceck before absolutIndex is not out of bounce
+        if (absolutIndex < htmlFragLength) {
+            siblingIndexes.push(absolutIndex);
+        }
         console.log(`siblingIndexes: ${siblingIndexes}`);
         // Serach for new tagName and start loop again
         tagName = htmlNameTag(htmlFrag);
