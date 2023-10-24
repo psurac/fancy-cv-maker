@@ -9,7 +9,7 @@ const HtmlToReactComp: FC<{html:string}> = ({html}) => {
     const mainHtml = html.slice(0, html.indexOf('>') + 1);
     let mainHtmlTag: string = htmlNameTag(mainHtml);
     let mainHtmlTagProps: object = propsToObject(mainHtml);
-    let childArray: any[] = childCreator(html.slice(html.indexOf('>') + 1));
+    let childArray: any[] = childCreator(html.slice(html.indexOf('>') + 1, html.lastIndexOf(`/${mainHtmlTag}`)));
 
     return createElement(mainHtmlTag, mainHtmlTagProps, childArray);
 }
@@ -92,7 +92,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
                 counterTags--;
             }
             // If counterTags gets 0 leave the loop
-            if (counterTags === 0) {
+            if (counterTags <= 0) {
                 break;
             }
             // If it is <${tagName} add +1 to counter
@@ -103,9 +103,11 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
                 return [-1];
             }
             emargencyBreak++;
+            console.log(`conterTags: ${counterTags}`);
         }
         // If counterTags is 0 get the actual index and add it to the array
         siblingIndexes.push(absolutIndex);
+        console.log(`siblingIndexes: ${siblingIndexes}`);
         // Serach for new tagName and start loop again
         tagName = htmlNameTag(htmlFrag);
     }
@@ -127,7 +129,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     const tagName: string = htmlNameTag(htmlFrag);
     const props: object = propsToObject(htmlFrag);
     const siblingIndexes: number[] = siblingTagSearchHelper(htmlFrag);
-    console.log(`siblingTagSearchHelper returns: ${siblingIndexes}, while htmlFrag is: ${htmlFrag}`);
+    console.log(`siblingTagSearchHelper returns: ${siblingIndexes}, while htmlFrag is: ${htmlFrag}, with tagName: ${tagName}`);
     // Check if there are siblings in htmlFragment
     // Check for errors
     if (siblingIndexes.length === 1 && siblingIndexes[0] === -1) {
