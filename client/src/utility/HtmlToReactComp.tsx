@@ -10,6 +10,7 @@ const HtmlToReactComp: FC<{html:string}> = ({html}) => {
     let mainHtmlTag: string = htmlNameTag(mainHtml);
     let mainHtmlTagProps: object = propsToObject(mainHtml);
     let childArray: any[] = childCreator(html.slice(html.indexOf('>') + 1, html.lastIndexOf(`/${mainHtmlTag}`)));
+    console.log(childArray);
 
     return createElement(mainHtmlTag, mainHtmlTagProps, childArray);
 }
@@ -147,6 +148,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     }
     // If not just put the htmlFragment in an array
     if (siblingIndexes.length === 1) {
+        console.log(`siblingIndex length is 1, htmlFrag is: ${htmlFrag}`);
         return [
             textBefore,
             createElement(tagName, props, childCreator(htmlFrag.substring(htmlFrag.indexOf('>'),htmlFrag.lastIndexOf('</')))), 
@@ -156,21 +158,26 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     // Split the htmlFrag into it's siblings
     let siblings: string[] = [];
     for (let i = 0; i < siblingIndexes.length; i++) {
-        if (i === 0) {
+        if (i === 0 && siblingIndexes[i] > 0) {
             siblings.push(htmlFrag.substring(0, siblingIndexes[i]));
-        } else if (i < siblingIndexes.length - 1) {
+        } else if (i !== 0 && i < siblingIndexes.length - 1) {
             siblings.push(htmlFrag.substring(siblingIndexes[i - 1], siblingIndexes[i]));
-        } else {
+        } else if (i !== 0 && i === siblingIndexes.length - 1){
             siblings.push(htmlFrag.substring(siblingIndexes[i - 1], siblingIndexes[i]));
             siblings.push(htmlFrag.substring(siblingIndexes[i]));
         }
     }
     console.log(`siblings: ${siblings}`);
     // Built up the child array
-    let child: Array<string | DOMElement<Object, Element>> = [textBefore]; // Adding the text before
+    let child: Array<string | DOMElement<Object, Element>> = [];
+    // Adding the text before
+    if (textBefore) {
+        child.push(textBefore);
+    }
     // loop over the given indexes and add each sibbling seperately to the child array
     for (let sibling of siblings) {
         // Add eventuell occured Text at the beginning to the child array
+        console.log(`sibling: ${sibling}`)
         child.push(sibling.substring(0, sibling.indexOf('<')));
         // Split each element in the front Tag and the innerHtml
         const frontTag: string = sibling.substring(sibling.indexOf('<'), sibling.indexOf('>') + 1);
@@ -184,7 +191,9 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
             childCreator(innerHtml)
         ));
     }
-    child.push(textAfter)
+    if (textAfter) {
+        child.push(textAfter);
+    }
     return child;
 };
 
