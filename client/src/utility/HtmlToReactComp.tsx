@@ -9,7 +9,7 @@ const HtmlToReactComp: FC<{html:string}> = ({html}) => {
     const mainHtml = html.slice(0, html.indexOf('>') + 1);
     let mainHtmlTag: string = htmlNameTag(mainHtml);
     let mainHtmlTagProps: object = propsToObject(mainHtml);
-    let childArray: any[] = childCreator(html.slice(html.indexOf('>') + 1, html.lastIndexOf(`/${mainHtmlTag}`)));
+    let childArray: any[] = childCreator(html.slice(html.indexOf('>') + 1, html.lastIndexOf(`</${mainHtmlTag}`)));
     console.log(childArray);
 
     return createElement(mainHtmlTag, mainHtmlTagProps, childArray);
@@ -78,8 +78,8 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
         // TODO add a way to handl tags who has no closing tag
         let emargencyBreak: number = 0;
         const regExp: RegExp = new RegExp(`(?<=[</])${tagName}`)
-        console.log(`htmlFrag: ${htmlFrag}`);
-        console.log(`tagName: ${tagName}`);
+        // console.log(`htmlFrag: ${htmlFrag}`);
+        // console.log(`tagName: ${tagName}`);
         while (true) {
             const indexCurrentTag: number = htmlFrag.search(regExp);
             const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 2;
@@ -114,7 +114,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
         if (absolutIndex < htmlFragLength) {
             siblingIndexes.push(absolutIndex - 1);
         }
-        console.log(`siblingIndexes: ${siblingIndexes}`);
+        // console.log(`siblingIndexes: ${siblingIndexes}`);
         // Serach for new tagName and start loop again
         tagName = htmlNameTag(htmlFrag);
     }
@@ -123,6 +123,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
 
 const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     // Return if htmlFragment empty or there are no < in there
+    console.log(`htmlFrag at top level of childCreator: ${htmlFrag}`);
     if (!htmlFrag.includes('<')) {
         return [htmlFrag];
     }
