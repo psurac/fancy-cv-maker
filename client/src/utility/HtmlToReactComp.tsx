@@ -182,15 +182,20 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
         child.push(sibling.substring(0, sibling.indexOf('<')));
         // Split each element in the front Tag and the innerHtml
         const frontTag: string = sibling.substring(sibling.indexOf('<'), sibling.indexOf('>') + 1);
+        const tagName: string =  htmlNameTag(frontTag);
         const innerHtml: string = sibling.substring(sibling.indexOf('>') + 1, sibling.lastIndexOf('<'));
         // Give the front Tag to htmlNameTag and propsToObject
         // give the innerHtml to childCreator
         // write all in the return Array
-        child.push(createElement(
-            htmlNameTag(frontTag),
-            propsToObject(frontTag),
-            childCreator(innerHtml)
-        ));
+        if (/^[a-z]+$/.test(tagName)) {
+            child.push(createElement(
+                tagName,
+                propsToObject(frontTag),
+                childCreator(innerHtml)
+            ));
+        } else {
+            child.push(`Filure: ${tagName} is not a valid html tag.`)
+        }
     }
     if (textAfter) {
         child.push(textAfter);
