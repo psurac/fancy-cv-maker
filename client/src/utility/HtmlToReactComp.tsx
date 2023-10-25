@@ -67,7 +67,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
 
     let tagIndex: number = htmlFrag.indexOf(tagName);
     if (tagIndex > 0) {
-        siblingIndexes.push(tagIndex);
+        siblingIndexes.push(tagIndex - 1);
     }
     absolutIndex = tagIndex + tagName.length;
     htmlFrag = htmlFrag.substring(absolutIndex);
@@ -87,8 +87,8 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
             absolutIndex += indexAfterClosingTag;
             htmlFrag = htmlFrag.substring(indexAfterClosingTag);
 
-            console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
-            console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
+            // console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
+            // console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
 
             // If it is </${tagName} substract -1 from counterTags
             if (charBeforeTag === '/') {
@@ -111,7 +111,7 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
         // If counterTags is 0 get the actual index and add it to the array
         // Ceck before absolutIndex is not out of bounce
         if (absolutIndex < htmlFragLength) {
-            siblingIndexes.push(absolutIndex);
+            siblingIndexes.push(absolutIndex - 1);
         }
         console.log(`siblingIndexes: ${siblingIndexes}`);
         // Serach for new tagName and start loop again
@@ -165,6 +165,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
             siblings.push(htmlFrag.substring(siblingIndexes[i]));
         }
     }
+    console.log(`siblings: ${siblings}`);
     // Built up the child array
     let child: Array<string | DOMElement<Object, Element>> = [textBefore]; // Adding the text before
     // loop over the given indexes and add each sibbling seperately to the child array
