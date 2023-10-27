@@ -56,40 +56,51 @@ const propsToObject: (props: string) => Object = (props) => {
 const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
     const htmlFragLength: number = htmlFrag.length;
     let siblingIndexes: number[] = [];
-    // Tack the starting tagName, set counterTags to 1, absolutIndex to 0
+    // Take the starting tagName, set counterTags to 1, absolutIndex to 0
     let absolutIndex: number = 0; // keap track on the absolut position wher htmlFrag is cuted
     let counterTags: number = 0;
-    let tagName: string = htmlNameTag(htmlFrag);
-    if (tagName.length > 0) {
-        counterTags = 1;
-    } else {
-        return [0];
-    }
+    console.log(`htmlFrag before looking for tagName: ${htmlFrag}`);
+    do {
+        console.log(`htmlFrag 1: ${htmlFrag}`);
+        // Search for new tagName
+        let tagName: string = htmlNameTag(htmlFrag);
+        if (tagName.length > 0) {
+            counterTags = 1;
+        } else {
+            break;
+        }
+        console.log(`tagName: ${tagName}`);
 
-    let tagIndex: number = htmlFrag.indexOf(tagName);
-    if (tagIndex > 0) {
-        siblingIndexes.push(tagIndex - 1);
-    }
-    absolutIndex = tagIndex + tagName.length;
-    htmlFrag = htmlFrag.substring(absolutIndex);
+        // If counterTags is 0 get the actual index and add it to the array
+        // Ceck before absolutIndex is not out of bounce
+        let tagIndex: number = htmlFrag.indexOf(tagName);
+        console.log(`tagIndex: ${tagIndex}`);
+        absolutIndex += tagIndex;
+        console.log(`absolutIndex: ${absolutIndex}`);
+        if (tagIndex > 0 && absolutIndex < htmlFragLength) {
+            siblingIndexes.push(absolutIndex - 1);
+            htmlFrag = htmlFrag.substring(tagIndex + tagName.length);
+            absolutIndex += tagName.length;
+        } else {
+            break;
+        }
+        console.log(`htmlFrag 2: ${htmlFrag}`);
 
-    // Search for ocurency of tagName in string
-    while (tagName.length > 0) {
         // TODO add a way to handl tags who has no closing tag
+        const regExp: RegExp = new RegExp(`(?<=(<\/*))(${tagName})`)
         let emargencyBreak: number = 0;
-        const regExp: RegExp = new RegExp(`(?<=[</])${tagName}`)
-        // console.log(`htmlFrag: ${htmlFrag}`);
-        // console.log(`tagName: ${tagName}`);
         while (true) {
             const indexCurrentTag: number = htmlFrag.search(regExp);
-            const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 2;
+            const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 1;
             const charBeforeTag: string | undefined = htmlFrag.at(indexCurrentTag - 1);
             // Update absolutIndex and slice the htmlFrag
             absolutIndex += indexAfterClosingTag;
             htmlFrag = htmlFrag.substring(indexAfterClosingTag);
 
-            // console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
-            // console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
+            console.log(`htmlFrag 3: ${htmlFrag}`);
+
+            console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
+            console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
 
             // If it is </${tagName} substract -1 from counterTags
             if (charBeforeTag === '/') {
@@ -109,15 +120,8 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
             emargencyBreak++;
             console.log(`conterTags: ${counterTags}`);
         }
-        // If counterTags is 0 get the actual index and add it to the array
-        // Ceck before absolutIndex is not out of bounce
-        if (absolutIndex < htmlFragLength) {
-            siblingIndexes.push(absolutIndex - 1);
-        }
-        // console.log(`siblingIndexes: ${siblingIndexes}`);
-        // Serach for new tagName and start loop again
-        tagName = htmlNameTag(htmlFrag);
-    }
+    } while (htmlFrag.length > 0);
+
     return siblingIndexes;
 }
 
@@ -134,6 +138,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
     const textAfter: string = htmlFrag.substring(indexCloseTag + 1);
     // Remove the text from before and behind, only html within the tag will remain
     htmlFrag = htmlFrag.substring(indexStartTag, indexCloseTag + 1);
+    console.log(`htmlFrag after shortening: ${htmlFrag}`);
     const tagName: string = htmlNameTag(htmlFrag);
     const props: object = propsToObject(htmlFrag);
     const siblingIndexes: number[] = siblingTagSearchHelper(htmlFrag);
@@ -194,7 +199,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
                 childCreator(innerHtml)
             ));
         } else {
-            child.push(`Filure: ${tagName} is not a valid html tag.`)
+            child.push(`Failure: ${tagName} is not a valid html tag.`)
         }
     }
     if (textAfter) {
