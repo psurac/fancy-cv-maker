@@ -3,9 +3,10 @@
  * https://jestjs.io/docs/configuration
  */
 
+import type {Config} from 'jest';
 import {defaults} from 'jest-config';
 
-const config: any = {
+const config: Config = {
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'mts'],
     verbose: true,
   // All imported modules in your tests should be mocked automatically
@@ -165,14 +166,16 @@ const config: any = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  // testMatch: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[tj]s?(x)"
-  // ],
+  testMatch: [
+    "**/__tests__/**/*.[jt]s?(x)",
+    "**/?(*.)+(spec|test).[tj]s?(x)",
+    // "**/client/src/**/?(*.)+(spec|test).[tj]s?(x)"
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [
-    ["<rootDir>/node_modules/"],
+    "<rootDir>/node_modules/",
+    "<rootDir>/client/node_modules/"
   ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
