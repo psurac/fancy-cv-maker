@@ -100,7 +100,7 @@ const config: Config = {
   moduleNameMapper: {
     '^react-dnd$': 'react-dnd-cjs',
     '^react-dnd-html5-backend$': 'react-dnd-html5-backend-cjs',
-    // '^dnd-core$': 'dnd-core/dist/cjs',
+    '^dnd-core$': 'dnd-core-cjs',
     '\\.(css|less|sass|scss)$': '<rootDir>/client/__test-help__/__mocks__/styleMock.tsx'
   },
 
