@@ -1,0 +1,18 @@
+{
+    "void" : [
+        "area",
+        "br",
+        "col",
+        "command",
+        "embeded",
+        "hr",
+        "img",
+        "input",
+        "keygen",
+        "link",
+        "param",
+        "source",
+        "track",
+        "wbr"
+    ]
+}

@@ -44,7 +44,7 @@ const propsToObject: (props: string) => Object = (props) => {
     let propsObj: propsObj = {};
     const propsNames: RegExpMatchArray | null = props.match(/(?<=\s)[-a-zA-Z0-9_]+(?=\=)/);
     const propsValues: RegExpMatchArray | null = props.match(/(?<=[\'\"\`\{])[\s-a-zA-Z0-9_]*(?=[\'\"\`\}])/);
-    // TODO Checking for special probs there maied be no Value, and add it
+    // TODO Checking for special probs there maied have no Value, and add it
     if (propsNames && propsValues && propsNames.length === propsValues.length) {
         for (let i = 0; i < propsNames.length; i++) {
             propsObj[propsNames[i]] = propsValues[i];
