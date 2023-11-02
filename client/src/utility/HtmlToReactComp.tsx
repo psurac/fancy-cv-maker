@@ -1,10 +1,11 @@
 import React from 'react';
 import { DOMElement, FC, createElement } from 'react'
+import { voidTags } from './htmlTagList.json';
 
 /*
 This Component takes an html string and builds itself out of it out of it
 */
-const HtmlToReactComp: FC<{html:string}> = ({html}) => {
+const HtmlToReactComp: FC<{ html: string }> = ({ html }) => {
     html = html.trim();
     const mainHtml = html.slice(0, html.indexOf('>') + 1);
     let mainHtmlTag: string = htmlNameTag(mainHtml);
@@ -87,38 +88,42 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
         console.log(`htmlFrag 2: ${htmlFrag}`);
 
         // TODO add a way to handl tags who has no closing tag
-        const regExp: RegExp = new RegExp(`(?<=(<\/*))(${tagName})`)
-        let emargencyBreak: number = 0;
-        while (true) {
-            const indexCurrentTag: number = htmlFrag.search(regExp);
-            const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 1;
-            const charBeforeTag: string | undefined = htmlFrag.at(indexCurrentTag - 1);
-            // Update absolutIndex and slice the htmlFrag
-            absolutIndex += indexAfterClosingTag;
-            htmlFrag = htmlFrag.substring(indexAfterClosingTag);
+        if (voidTags.includes(tagName)) {
+            console.log(`tagName void tag: ${tagName}`);
+        } else {
+            const regExp: RegExp = new RegExp(`(?<=(<\/*))(${tagName})`)
+            let emargencyBreak: number = 0;
+            while (true) {
+                const indexCurrentTag: number = htmlFrag.search(regExp);
+                const indexAfterClosingTag: number = indexCurrentTag + tagName.length + 1;
+                const charBeforeTag: string | undefined = htmlFrag.at(indexCurrentTag - 1);
+                // Update absolutIndex and slice the htmlFrag
+                absolutIndex += indexAfterClosingTag;
+                htmlFrag = htmlFrag.substring(indexAfterClosingTag);
 
-            console.log(`htmlFrag 3: ${htmlFrag}`);
+                console.log(`htmlFrag 3: ${htmlFrag}`);
 
-            console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
-            console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
+                console.log(`indexCurrentTag - ${indexCurrentTag}; indexAfterClosingTag: ${indexAfterClosingTag}`);
+                console.log(`${emargencyBreak} - charBeforeTag: ${charBeforeTag}`);
 
-            // If it is </${tagName} substract -1 from counterTags
-            if (charBeforeTag === '/') {
-                counterTags--;
+                // If it is </${tagName} substract -1 from counterTags
+                if (charBeforeTag === '/') {
+                    counterTags--;
+                }
+                // If counterTags gets 0 leave the loop
+                if (counterTags <= 0) {
+                    break;
+                }
+                // If it is <${tagName} add +1 to counter
+                if (charBeforeTag === '<') {
+                    counterTags++;
+                }
+                if (emargencyBreak > 20 || !charBeforeTag) {
+                    return [-1];
+                }
+                emargencyBreak++;
+                console.log(`conterTags: ${counterTags}`);
             }
-            // If counterTags gets 0 leave the loop
-            if (counterTags <= 0) {
-                break;
-            }
-            // If it is <${tagName} add +1 to counter
-            if (charBeforeTag === '<') {
-                counterTags++;
-            }
-            if (emargencyBreak > 20 || !charBeforeTag) {
-                return [-1];
-            }
-            emargencyBreak++;
-            console.log(`conterTags: ${counterTags}`);
         }
     } while (htmlFrag.length > 0);
 
@@ -157,7 +162,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
         console.log(`siblingIndex length is 1, htmlFrag is: ${htmlFrag}`);
         return [
             textBefore,
-            createElement(tagName, props, childCreator(htmlFrag.substring(htmlFrag.indexOf('>'),htmlFrag.lastIndexOf('</')))), 
+            createElement(tagName, props, childCreator(htmlFrag.substring(htmlFrag.indexOf('>'), htmlFrag.lastIndexOf('</')))),
             textAfter
         ]
     }
@@ -168,7 +173,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
             siblings.push(htmlFrag.substring(0, siblingIndexes[i]));
         } else if (i !== 0 && i < siblingIndexes.length - 1) {
             siblings.push(htmlFrag.substring(siblingIndexes[i - 1], siblingIndexes[i]));
-        } else if (i !== 0 && i === siblingIndexes.length - 1){
+        } else if (i !== 0 && i === siblingIndexes.length - 1) {
             siblings.push(htmlFrag.substring(siblingIndexes[i - 1], siblingIndexes[i]));
             siblings.push(htmlFrag.substring(siblingIndexes[i]));
         }
@@ -187,7 +192,7 @@ const childCreator: (htmlFrag: string) => Array<any> = (htmlFrag) => {
         child.push(sibling.substring(0, sibling.indexOf('<')));
         // Split each element in the front Tag and the innerHtml
         const frontTag: string = sibling.substring(sibling.indexOf('<'), sibling.indexOf('>') + 1);
-        const tagName: string =  htmlNameTag(frontTag);
+        const tagName: string = htmlNameTag(frontTag);
         const innerHtml: string = sibling.substring(sibling.indexOf('>') + 1, sibling.lastIndexOf('<'));
         // Give the front Tag to htmlNameTag and propsToObject
         // give the innerHtml to childCreator
