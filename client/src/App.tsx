@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 import Main from './pages/Main';
 
 const App: FC = () => {
-  const [ data, setData ] = useState('not loaded');
+  const [ data, setData ] = useState();
 
   useEffect(() => {
     fetch('/api')

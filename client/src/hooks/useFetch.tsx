@@ -8,7 +8,7 @@ type FetchReturnType = [
 ];
 
 const useFetch = (): FetchReturnType  => {
-    const [data, setData] = useState({});
+    const [data, setData] = useState<object | undefined>({});
     const [error, setError] = useState('');
     const firstRun = useRef(true);
     const method = useRef<FetchMethod>('GET');
