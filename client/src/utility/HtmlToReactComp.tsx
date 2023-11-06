@@ -90,6 +90,10 @@ const siblingTagSearchHelper: (htmlFrag: string) => number[] = (htmlFrag) => {
         // TODO add a way to handl tags who has no closing tag
         if (voidTags.includes(tagName)) {
             console.log(`tagName void tag: ${tagName}`);
+            const indexCloseTag = htmlFrag.indexOf('>');
+            absolutIndex += indexCloseTag;
+            siblingIndexes.push(absolutIndex - 1);
+            htmlFrag = htmlFrag.substring(indexCloseTag);
         } else {
             const regExp: RegExp = new RegExp(`(?<=(<\/*))(${tagName})`)
             let emargencyBreak: number = 0;
