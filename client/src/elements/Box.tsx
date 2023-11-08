@@ -33,8 +33,7 @@ const Box: FC<BoxType> = ({ prop }) => {
     },[item, setItem, innerHtml]);
 
     return (
-        <div ref={drop} key={key} style={{ backgroundColor: "#FF0000" }}>
-            {prop}
+        <div ref={drop} key={key}>
             <button type="button" value="delete" onClick={() => setItem('')}>Delete</button>
             <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>
             {innerHtml ? (

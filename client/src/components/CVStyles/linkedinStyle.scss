@@ -8,4 +8,10 @@
     $lightgrey: rgba(202, 204, 206, 1);
 
     background-color: $color3;
+
+    .box {
+        border: solid 0.2px $lightgrey;
+        border-radius: 10px;
+        background-color: $color1;
+    }
 }
