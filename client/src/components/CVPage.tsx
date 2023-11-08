@@ -1,5 +1,6 @@
 import { FC, } from 'react';
 import './CVPage.scss';
+import './CVStyles/CVStyles.scss';
 import Box from '../elements/Box';
 import DragWrapper from '../wrapper/DragWrapper';
 
