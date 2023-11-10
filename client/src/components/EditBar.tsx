@@ -12,7 +12,7 @@ interface EditBarProps {
 const EditBar: FC<EditBarProps> = ({setPageNumber}) => {
     const formElement = useRef<HTMLFormElement | null >(null);
     const [fetchFunction, data] = useFetch();
-    const action : Path = '/cv-style';
+    const action : Path = '/';
     const method : FetchMethod = 'POST';
 
     const submitHandler = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -24,13 +24,21 @@ const EditBar: FC<EditBarProps> = ({setPageNumber}) => {
             console.log(data);
         }
     }
+    const changeHandler = (e: React.ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const target = e.target;
+        if (target.name === 'number-pages') {
+            setPageNumber(target.value);
+        }
+    };
     return (
         <div className="edit-bar-container">
             <form
                 ref={formElement}
                 className='select-style'
                 onSubmit={submitHandler}
-                onChange={() => formElement.current?.submit()}
+                // onChange={() => formElement.current?.submit()}
+                onChange={changeHandler}
                 method={method}
                 action={action}
             >
@@ -38,7 +46,7 @@ const EditBar: FC<EditBarProps> = ({setPageNumber}) => {
                     <option value='windows'>Windows</option>
                     <option value='linux'>Linux</option>
                     <option value='github'>GitHub</option>
-                    <option value='facebook'>Facebook</option>
+                    <option value='linkedin'>Linkedin</option>
                 </select>
                 <label htmlFor='cv-style'>CV Style</label>
                 <select name='number-pages' id='number-pages'>
@@ -47,7 +55,7 @@ const EditBar: FC<EditBarProps> = ({setPageNumber}) => {
                     <option value='3'>3</option>
                     <option value='4'>4</option>
                 </select>
-                <label htmlFor='cv-style'>Number of pages</label>
+                <label htmlFor='number-pages'>Number of pages</label>
             </form>
             <ElementContainer />
         </div>
