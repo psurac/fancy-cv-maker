@@ -1,11 +1,15 @@
-import { FC, useRef } from 'react';
+import { Dispatch, FC, SetStateAction, useRef } from 'react';
 import './EditBar.scss';
 import useFetch from '../hooks/useFetch';
 import { FetchMethod, Path } from '../types/type';
-import ListUO from '../elements/ListUO';
 import ElementContainer from './ElementContainer';
+import {pageNumberType} from '../types/type.tsx'
 
-const EditBar: FC = () => {
+interface EditBarProps {
+    setPageNumber: Dispatch<SetStateAction<pageNumberType>>;
+}
+
+const EditBar: FC<EditBarProps> = ({setPageNumber}) => {
     const formElement = useRef<HTMLFormElement | null >(null);
     const [fetchFunction, data] = useFetch();
     const action : Path = '/cv-style';
@@ -37,6 +41,13 @@ const EditBar: FC = () => {
                     <option value='facebook'>Facebook</option>
                 </select>
                 <label htmlFor='cv-style'>CV Style</label>
+                <select name='number-pages' id='number-pages'>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                </select>
+                <label htmlFor='cv-style'>Number of pages</label>
             </form>
             <ElementContainer />
         </div>
