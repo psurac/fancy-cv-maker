@@ -21,12 +21,4 @@
         grid-column-end: span 2;
         display: null;
     };
-    /* .box {
-        &:nth-child(odd) {
-            grid-column: 1 / 2;
-        }
-        &:nth-child(even) {
-            grid-column: 2 / 3;
-        }
-    } */
 }
