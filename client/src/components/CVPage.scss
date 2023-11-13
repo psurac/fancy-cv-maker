@@ -26,8 +26,14 @@
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 2fr;
-    }
-    .box {
-        min-height: 50px;
+        .box {
+            display: flex;
+            min-height: 50px;
+        }
+        .box-container {
+            display: block;
+            min-width: 100%;
+            min-height: 100%;
+        }
     }
 }
