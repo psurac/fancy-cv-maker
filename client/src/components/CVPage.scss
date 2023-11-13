@@ -10,7 +10,8 @@
     margin: 1rem{
         top: 70px;
     };
-    padding: 1rem;
+    border: 1px dotted $sec2-color;
+    // padding: 1rem;
     gap: 1rem;
 
     .navbar-element {
@@ -28,6 +29,10 @@
         display: grid;
         grid-template-columns: 1fr 2fr;
         min-height: 100%;
+        padding: {
+            right: 15px;
+            left: 15px;
+        }
 
         .content-side, .content-main {
             display: flex;

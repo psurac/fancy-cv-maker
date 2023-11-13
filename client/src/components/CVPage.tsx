@@ -3,18 +3,21 @@ import './CVPage.scss';
 import './CVStyles/CVStyles.scss';
 import Box from '../elements/Box';
 import gridBoxGenerator from '../utility/gridBoxGenerator';
+import PageSettings from './PageSettings';
 
 type styleType = 'linkedin' | 'github' | 'linux' | 'windows' | '';
 
 const CVPage: FC = () => {
     const [style, setStyle] = useState<styleType>('');
+    const [numBoxesSide, setNumBoxesSide] = useState<number>(5);
+    const [numBoxesMain, setNumBoxesMain] = useState<number>(6);
 
     useEffect(() => {
         setStyle('linkedin')
     }, []);
 
-    const gridBoxesSide = gridBoxGenerator(6);
-    const grifBoxesMain = gridBoxGenerator(6);
+    const gridBoxesSide = gridBoxGenerator(numBoxesSide);
+    const grifBoxesMain = gridBoxGenerator(numBoxesMain);
 
     /* for (let i = 0; i < gridBoxes.length; i += 2) {
         [gridBoxes[i], gridBoxes[i+1]] = [gridBoxes[i+1], gridBoxes[i]];
@@ -22,6 +25,12 @@ const CVPage: FC = () => {
 
     return (
         <div className={`page ${style}`} data-testid="cv-page">
+            <PageSettings
+                numBoxesSide={numBoxesSide}
+                setNumBoxesSide={setNumBoxesSide}
+                numBoxesMain={numBoxesMain}
+                setNumBoxesMain={setNumBoxesMain}
+            />
             <div className="navbar-element">
                 Navbar Element
             </div>

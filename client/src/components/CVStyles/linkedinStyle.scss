@@ -9,6 +9,10 @@
 
     background-color: $color3;
 
+    .navbar-element {
+        background-color: $color1;
+    }
+
     .box {
         border: solid 0.2px $lightgrey;
         border-radius: 10px;
