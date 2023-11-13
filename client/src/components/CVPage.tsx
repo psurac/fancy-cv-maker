@@ -12,7 +12,7 @@ const CVPage: FC= () => {
         setStyle('linkedin')
     },[]);
 
-    let gridBoxes: Array<JSX.Element> = Array(2*12).fill('box').map( (name, index) => (
+    let gridBoxes: Array<JSX.Element> = Array(6).fill('box').map( (name, index) => (
         <div className={name} key={index} id={`${name}-${index+1}`}>
             <Box prop={`${name}-${index+1}`} />
         </div>
@@ -28,7 +28,14 @@ const CVPage: FC= () => {
             <div className="navbar-element">
                 Navbar Element
             </div>
-            {gridBoxes}
+            <div className="content">
+                <div className='content-left'>
+                    {gridBoxes}
+                </div>
+                <div className='content-right'>
+                    {gridBoxes}
+                </div>
+            </div>
             <div className="taskbar-element">
                 Taskbar Element
             </div>

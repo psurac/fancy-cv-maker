@@ -1,9 +1,8 @@
 @import "../template.scss";
 
 .page {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr repeat(12, 2fr) 1fr;
+    display: flex;
+    flex-direction: column;
     background-color: $sec2-color;
     width: 598px;
     height: 842px;
@@ -14,11 +13,21 @@
     gap: 1rem;
 
     .navbar-element {
-        grid-column-end: span 2;
+        min-height: 40px;
         display: null;
     };
     .taskbar-element {
-        grid-column-end: span 2;
+        min-height: 40px;
+        position: absolute;
+        bottom: 0;
         display: null;
     };
+    .content {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+    .box {
+        min-height: 50px;
+    }
 }
