@@ -39,10 +39,10 @@
                 background-color: $darkgrey;
             }
         }
-    }
-    .box:hover {
-        .edit-box {
-            display: inline-block;
+        :hover {
+            .edit-box {
+                display: inline-block;
+            }
         }
     }
 }

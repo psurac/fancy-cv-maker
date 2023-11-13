@@ -6,6 +6,7 @@
     background-color: $sec2-color;
     width: 598px;
     height: 842px;
+    position: relative;
     margin: 1rem{
         top: 70px;
     };
@@ -26,6 +27,15 @@
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 2fr;
+        min-height: 100%;
+
+        .content-side, .content-main {
+            display: flex;
+            flex-direction: column;
+        }
+        &, .content-side, .content-main {
+            gap: 10px;
+        }
         .box {
             display: flex;
             min-height: 50px;
