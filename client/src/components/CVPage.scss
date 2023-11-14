@@ -14,6 +14,15 @@
     // padding: 1rem;
     gap: 1rem;
 
+    .settings {
+        width: 43px;
+        border: solid 0.7px $sec2-color;
+        font-size: 10px;
+        position: absolute;
+        top: 0;
+        right: -45px;
+    }
+
     .navbar-element {
         min-height: 40px;
         display: null;

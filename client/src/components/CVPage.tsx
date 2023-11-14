@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import './CVPage.scss';
 import './CVStyles/CVStyles.scss';
-import Box from '../elements/Box';
+import LinkedinNavBar from './CVPageElements/LinkedinNavBar';
 import gridBoxGenerator from '../utility/gridBoxGenerator';
 import PageSettings from './PageSettings';
 
@@ -30,10 +30,9 @@ const CVPage: FC = () => {
                 setNumBoxesSide={setNumBoxesSide}
                 numBoxesMain={numBoxesMain}
                 setNumBoxesMain={setNumBoxesMain}
+                className='settings'
             />
-            <div className="navbar-element">
-                Navbar Element
-            </div>
+            <LinkedinNavBar className="navbar-element" />
             <div className="content">
                 <div className="content-side">
                     {gridBoxesSide}

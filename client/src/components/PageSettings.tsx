@@ -6,15 +6,17 @@ type PageSettingsType = {
     setNumBoxesSide: React.Dispatch<React.SetStateAction<number>>;
     numBoxesMain: number;
     setNumBoxesMain: React.Dispatch<React.SetStateAction<number>>
+    className?: string;
 };
 
-const PageSettings: FC<PageSettingsType> = ({numBoxesSide, setNumBoxesSide, numBoxesMain, setNumBoxesMain}) => {
+const PageSettings: FC<PageSettingsType> = ({numBoxesSide, setNumBoxesSide, numBoxesMain, setNumBoxesMain, className}) => {
     const [showeSettings, setShoweSettings] = useState<boolean>(false);
     return (
         <div
-            className="settings"
+            className={className}
             onMouseEnter={() => setShoweSettings(true)}
-            onMouseLeave={() => setShoweSettings(false)}>
+            onMouseLeave={() => setShoweSettings(false)}
+        >
             <div>Settings</div>
             {showeSettings &&
                 <>
