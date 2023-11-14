@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import './PageSettings.scss';
 
 type PageSettingsType = {
     numBoxesSide: number;
