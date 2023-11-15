@@ -25,22 +25,24 @@
 
     .navbar-element {
         min-height: 40px;
-        display: null;
+        height: 50px;
+        display: none;
     };
     .taskbar-element {
         min-height: 40px;
         position: absolute;
         bottom: 0;
-        display: null;
+        display: none;
     };
     .content {
-        width: 100%;
+        // width: 100%;
         display: grid;
         grid-template-columns: 1fr 2fr;
         min-height: 100%;
+        $pad: 15px;
         padding: {
-            right: 15px;
-            left: 15px;
+            right: $pad;
+            left: $pad;
         }
 
         .content-side, .content-main {
@@ -48,7 +50,7 @@
             flex-direction: column;
         }
         &, .content-side, .content-main {
-            gap: 10px;
+            gap: 5px;
         }
         .box {
             display: flex;

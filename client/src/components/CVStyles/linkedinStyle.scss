@@ -12,6 +12,7 @@
     .navbar-element {
         background-color: $color1;
         display: flex;
+        max-height: 50px;
         align-items: center;
         justify-content: space-evenly;
         .icon {
@@ -28,6 +29,38 @@
             align-items: center;
             font-size: 10px;
         }
+        .img-container {
+            display: flex;
+            img {
+                display: inline-block;
+                height: 80%;
+                width: 80%;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .content {
+        $marg: 10px;
+        margin: {
+            right: $marg;
+            left: $marg;
+        }
+    }
+
+    .profile-box {
+        display: flex;
+        align-items: top;
+        justify-content: center;
+        height: 25%;
+
+        img {
+            width: 50%;
+            height: 37%;
+            border: solid 2px $color1;
+            border-radius: 50%;
+            margin-top: 20px;
+        }
     }
 
     .box {
@@ -35,6 +68,11 @@
         border-radius: 10px;
         background-color: $color1;
         position: relative;
+        $marg: 10px;
+        margin: {
+            right: $marg;
+            left: $marg;
+        }
 
         .box-continer {
             width: 100%;

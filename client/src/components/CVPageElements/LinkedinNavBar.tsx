@@ -7,7 +7,11 @@ import { RiMessage2Fill } from "react-icons/ri";
 import { GoBellFill } from "react-icons/go";
 import { CgMenuGridR } from "react-icons/cg";
 
-const LinkedinNavBar: FC<{ className: string }> = ({ className }) => {
+type LinkedinNavBarTyp = {
+    className: string;
+    imageURL: string;
+}
+const LinkedinNavBar: FC<LinkedinNavBarTyp> = ({ className, imageURL }) => {
     const size: number = 23;
     return (
         <div className={className}>
@@ -37,7 +41,9 @@ const LinkedinNavBar: FC<{ className: string }> = ({ className }) => {
                 <span>Messages</span>
             </div>
             <div className="symbole-group">
-                <div>Pic</div>
+                <div className="img-container">
+                    <img src={imageURL} alt="You" />
+                </div>
                 <span>You</span>
             </div>
             <div className="symbole-group">

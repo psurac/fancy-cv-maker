@@ -36,11 +36,11 @@ const CVPage: FC<CVPageType> = ({key, imageURL}) => {
                 setNumBoxesMain={setNumBoxesMain}
                 className='settings'
             />
-            <LinkedinNavBar className="navbar-element" />
+            <LinkedinNavBar className="navbar-element" imageURL={imageURL} />
             <div className="content">
                 <div className="content-side">
-                    <div className='box'>
-                        <img src={imageURL} alt="Picture of a prety Face." width='20px' />
+                    <div className='box profile-box'>
+                        <img src={imageURL} alt="Picture of a preatty Face." />
                     </div>
                     {gridBoxesSide}
                 </div>
