@@ -1,6 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
-const ImageUploader: FC<React.Dispatch<React.SetStateAction<string>>> = (setImageURL) => {
+type ImageUploderType = {
+    setImageURL: Dispatch<SetStateAction<string>>
+}
+
+const ImageUploader: FC<ImageUploderType> = ({setImageURL}) => {
     const [image, setImage] = useState<File>();
 
     useEffect(() => {

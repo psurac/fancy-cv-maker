@@ -6,8 +6,12 @@ import gridBoxGenerator from '../utility/gridBoxGenerator';
 import PageSettings from './PageSettings';
 
 type styleType = 'linkedin' | 'github' | 'linux' | 'windows' | '';
+type CVPageType = {
+    key: number;
+    imageURL: string;
+}
 
-const CVPage: FC = () => {
+const CVPage: FC<CVPageType> = ({key, imageURL}) => {
     const [style, setStyle] = useState<styleType>('');
     const [numBoxesSide, setNumBoxesSide] = useState<number>(5);
     const [numBoxesMain, setNumBoxesMain] = useState<number>(6);
@@ -24,7 +28,7 @@ const CVPage: FC = () => {
     } */
 
     return (
-        <div className={`page ${style}`} data-testid="cv-page">
+        <div key={key} className={`page ${style}`} data-testid="cv-page">
             <PageSettings
                 numBoxesSide={numBoxesSide}
                 setNumBoxesSide={setNumBoxesSide}
@@ -36,7 +40,7 @@ const CVPage: FC = () => {
             <div className="content">
                 <div className="content-side">
                     <div className='box'>
-                        img
+                        <img src={imageURL} alt="Picture of a prety Face." width='20px' />
                     </div>
                     {gridBoxesSide}
                 </div>

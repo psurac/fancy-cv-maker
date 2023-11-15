@@ -8,9 +8,10 @@ import ImageUploader from './ImageUploader.tsx';
 
 interface EditBarProps {
     setPageNumber: Dispatch<SetStateAction<pageNumberType>>;
+    setImageURL: Dispatch<SetStateAction<string>>;
 }
 
-const EditBar: FC<EditBarProps> = ({ setPageNumber }) => {
+const EditBar: FC<EditBarProps> = ({ setPageNumber, setImageURL }) => {
     const formElement = useRef<HTMLFormElement | null>(null);
     const [fetchFunction, data] = useFetch();
     const action: Path = '/';
@@ -67,7 +68,7 @@ const EditBar: FC<EditBarProps> = ({ setPageNumber }) => {
                 </label>
             </form>
             <ElementContainer />
-            <ImageUploader setImageURL={null}/>
+            <ImageUploader setImageURL={setImageURL} />
         </div>
     );
 };
