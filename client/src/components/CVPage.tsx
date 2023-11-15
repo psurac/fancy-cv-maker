@@ -35,6 +35,9 @@ const CVPage: FC = () => {
             <LinkedinNavBar className="navbar-element" />
             <div className="content">
                 <div className="content-side">
+                    <div className='box'>
+                        img
+                    </div>
                     {gridBoxesSide}
                 </div>
                 <div className="content-main">
