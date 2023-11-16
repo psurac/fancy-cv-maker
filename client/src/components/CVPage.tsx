@@ -4,6 +4,7 @@ import './CVStyles/CVStyles.scss';
 import LinkedinNavBar from './CVPageElements/LinkedinNavBar';
 import gridBoxGenerator from '../utility/gridBoxGenerator';
 import PageSettings from './PageSettings';
+import Box from '../elements/Box';
 
 type styleType = 'linkedin' | 'github' | 'linux' | 'windows' | '';
 type CVPageType = {
@@ -12,7 +13,7 @@ type CVPageType = {
     imageURLSec: string;
 }
 
-const CVPage: FC<CVPageType> = ({key, imageURLPrim, imageURLSec}) => {
+const CVPage: FC<CVPageType> = ({ key, imageURLPrim, imageURLSec }) => {
     const [style, setStyle] = useState<styleType>('');
     const [numBoxesSide, setNumBoxesSide] = useState<number>(5);
     const [numBoxesMain, setNumBoxesMain] = useState<number>(6);
@@ -43,6 +44,7 @@ const CVPage: FC<CVPageType> = ({key, imageURLPrim, imageURLSec}) => {
                     <div className='box profile-box'>
                         <img className='prim-img' src={imageURLPrim} alt="Picture of a preatty Face." />
                         <img className='sec-img' src={imageURLSec} alt="A nice Background." />
+                        <Box className='profile-box-cont'/>
                     </div>
                     {gridBoxesSide}
                 </div>

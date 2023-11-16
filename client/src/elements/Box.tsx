@@ -6,10 +6,10 @@ import { GenElementType } from '../types/type';
 import HtmlToReactComp from '../utility/HtmlToReactComp';
 
 interface BoxType {
-    prop: any
+    className?: string
 }
 
-const Box: FC<BoxType> = ({ prop }) => {
+const Box: FC<BoxType> = ({ className }) => {
     const [item, setItem] = useState<GenElementType>();
     const [key, setKey] = useState<number>(0);
     const [editable, setEditable] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const Box: FC<BoxType> = ({ prop }) => {
     }, [item, setItem, innerHtml]);
 
     return (
-        <div className='box-container' ref={drop} key={key}>
+        <div className={className ? className : 'box-container'} ref={drop} key={key}>
             <div className="edit-box">
                 <button type="button" value="delete" onClick={() => setItem('')}>Delete</button>
                 <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>
