@@ -8,10 +8,11 @@ import PageSettings from './PageSettings';
 type styleType = 'linkedin' | 'github' | 'linux' | 'windows' | '';
 type CVPageType = {
     key: number;
-    imageURL: string;
+    imageURLPrim: string;
+    imageURLSec: string;
 }
 
-const CVPage: FC<CVPageType> = ({key, imageURL}) => {
+const CVPage: FC<CVPageType> = ({key, imageURLPrim, imageURLSec}) => {
     const [style, setStyle] = useState<styleType>('');
     const [numBoxesSide, setNumBoxesSide] = useState<number>(5);
     const [numBoxesMain, setNumBoxesMain] = useState<number>(6);
@@ -36,11 +37,12 @@ const CVPage: FC<CVPageType> = ({key, imageURL}) => {
                 setNumBoxesMain={setNumBoxesMain}
                 className='settings'
             />
-            <LinkedinNavBar className="navbar-element" imageURL={imageURL} />
+            <LinkedinNavBar className="navbar-element" imageURL={imageURLPrim} />
             <div className="content">
                 <div className="content-side">
                     <div className='box profile-box'>
-                        <img src={imageURL} alt="Picture of a preatty Face." />
+                        <img className='prim-img' src={imageURLPrim} alt="Picture of a preatty Face." />
+                        <img className='sec-img' src={imageURLSec} alt="A nice Background." />
                     </div>
                     {gridBoxesSide}
                 </div>

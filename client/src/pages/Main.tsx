@@ -8,12 +8,13 @@ import {pageNumberType} from '../types/type.tsx'
 
 const Main: FC = () => {
     const [pageNumber, setPageNumber] = useState<pageNumberType>(1);
-    const [imageURL, setImageURL] = useState<string>('#');
+    const [imageURLPrim, setImageURLPrim] = useState<string>('#');
+    const [imageURLSec, setImageURLSec] = useState<string>('#');
     return (
         <main className='main'>
             <DndProvider backend={HTML5Backend}>
-                <EditBar setPageNumber={setPageNumber} setImageURL={setImageURL} />
-                {Array.from({ length: pageNumber }, (_, i) => <CVPage key={i} imageURL={imageURL} />)}
+                <EditBar setPageNumber={setPageNumber} setImageURLPrim={setImageURLPrim} setImageURLSec={setImageURLSec} />
+                {Array.from({ length: pageNumber }, (_, i) => <CVPage key={i} imageURLPrim={imageURLPrim} imageURLSec={imageURLSec} />)}
             </DndProvider>
         </main>
     );

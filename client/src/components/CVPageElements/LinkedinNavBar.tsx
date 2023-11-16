@@ -40,10 +40,8 @@ const LinkedinNavBar: FC<LinkedinNavBarTyp> = ({ className, imageURL }) => {
                 <GoBellFill size={size} />
                 <span>Messages</span>
             </div>
-            <div className="symbole-group">
-                <div className="img-container">
-                    <img src={imageURL} alt="You" />
-                </div>
+            <div className="symbole-group img-container">
+                <img src={imageURL} alt="You" />
                 <span>You</span>
             </div>
             <div className="symbole-group">
