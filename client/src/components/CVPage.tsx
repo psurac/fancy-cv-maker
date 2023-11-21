@@ -15,8 +15,9 @@ type CVPageType = {
 
 const CVPage: FC<CVPageType> = ({ key, imageURLPrim, imageURLSec }) => {
     const [style, setStyle] = useState<styleType>('');
-    const [numBoxesSide, setNumBoxesSide] = useState<number>(5);
-    const [numBoxesMain, setNumBoxesMain] = useState<number>(6);
+    const [numFildsProfileBox, setNumFilesProfileBox] = useState<number>(2);
+    const [numBoxesSide, setNumBoxesSide] = useState<number>(3);
+    const [numBoxesMain, setNumBoxesMain] = useState<number>(4);
 
     useEffect(() => {
         setStyle('linkedin')
@@ -32,6 +33,8 @@ const CVPage: FC<CVPageType> = ({ key, imageURLPrim, imageURLSec }) => {
     return (
         <div key={key} className={`page ${style}`} data-testid="cv-page">
             <PageSettings
+                numFildsProfileBox={numFildsProfileBox}
+                setNumFilesProfileBox={setNumFilesProfileBox}
                 numBoxesSide={numBoxesSide}
                 setNumBoxesSide={setNumBoxesSide}
                 numBoxesMain={numBoxesMain}
@@ -44,7 +47,11 @@ const CVPage: FC<CVPageType> = ({ key, imageURLPrim, imageURLSec }) => {
                     <div className='box profile-box'>
                         <img className='prim-img' src={imageURLPrim} alt="Picture of a preatty Face." />
                         <img className='sec-img' src={imageURLSec} alt="A nice Background." />
-                        <Box className='profile-box-cont'/>
+                        <div className='profile-boc-container'>
+                            {Array.from({ length: numFildsProfileBox }, (_, i) => (
+                                <Box key={i} className='profile-box-cont' />
+                            ))}
+                        </div>
                     </div>
                     {gridBoxesSide}
                 </div>

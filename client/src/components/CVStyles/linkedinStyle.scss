@@ -85,10 +85,15 @@
             height: 28.5%;
             z-index: 1;
         }
+        .profile-boc-container {
+            height: 47%;
+            width: 100%;
+        }
         .profile-box-cont {
             position: relative;
             height: 47%;
             width: 100%;
+            border-top: .7px solid $mediumgrey;
         }
     }
 
