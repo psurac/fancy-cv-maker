@@ -15,7 +15,7 @@ type CVPageType = {
 
 const CVPage: FC<CVPageType> = ({ key, imageURLPrim, imageURLSec }) => {
     const [style, setStyle] = useState<styleType>('');
-    const [numFildsProfileBox, setNumFilesProfileBox] = useState<number>(2);
+    const [numFildsProfileBox, setNumFilesProfileBox] = useState<number>(1);
     const [numBoxesSide, setNumBoxesSide] = useState<number>(3);
     const [numBoxesMain, setNumBoxesMain] = useState<number>(4);
 

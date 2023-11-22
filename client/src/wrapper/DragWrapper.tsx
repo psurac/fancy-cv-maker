@@ -1,9 +1,8 @@
-import { ComponentType, Dispatch, FC, FocusEventHandler, SetStateAction } from 'react';
-import { createElement, memo, useCallback, useEffect } from 'react';
+import { Dispatch, FC, FocusEventHandler, SetStateAction } from 'react';
+import { createElement, memo, useCallback } from 'react';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import { GenElementType } from '../types/type';
-import { Parser } from 'html-to-react'
 
 interface DragWrapperType {
     child: GenElementType
@@ -29,11 +28,6 @@ const DragWrapper: FC<DragWrapperType> = (
             monitor.didDrop() && inBox && setInnerHtml && setInnerHtml('');
         }
     }))
-
-    /* useEffect(() => {
-        console.log(typeof(child));
-        console.log(child);
-    },[]) */
 
     const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
         console.log(event.currentTarget.innerHTML);
