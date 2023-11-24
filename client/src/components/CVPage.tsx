@@ -49,7 +49,7 @@ const CVPage: FC<CVPageType> = ({ key, imageURLPrim, imageURLSec }) => {
                         <img className='sec-img' src={imageURLSec} alt="A nice Background." />
                         <div className='profile-boc-container'>
                             {Array.from({ length: numFildsProfileBox }, (_, i) => (
-                                <Box key={i} className='profile-box-cont' />
+                                <Box key={i} className='profile-box-cont' boxHeaderShow={false} />
                             ))}
                         </div>
                     </div>

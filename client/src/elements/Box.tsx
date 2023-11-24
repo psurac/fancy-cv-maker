@@ -4,12 +4,14 @@ import { ItemTypes } from '../constants/ItemTypes';
 import DragWrapper from '../wrapper/DragWrapper';
 import { GenElementType } from '../types/type';
 import HtmlToReactComp from '../utility/HtmlToReactComp';
+import BoxHeader from './BoxHeader';
 
 interface BoxType {
     className?: string
+    boxHeaderShow?: boolean
 }
 
-const Box: FC<BoxType> = ({ className }) => {
+const Box: FC<BoxType> = ({ className, boxHeaderShow = true }) => {
     const [item, setItem] = useState<GenElementType>();
     const [key, setKey] = useState<number>(0);
     const [editable, setEditable] = useState<boolean>(false);
@@ -38,6 +40,7 @@ const Box: FC<BoxType> = ({ className }) => {
                 <button type="button" value="delete" onClick={() => setItem('')}>Delete</button>
                 <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>
             </div>
+            {boxHeaderShow && <BoxHeader className='box-header' />}
             {innerHtml ? (
                 <DragWrapper child={() => HtmlToReactComp({ html: innerHtml })} inBox={true} editable={editable} setItem={setItem} setInnerHtml={setInnerHtml} />
             ) : item && (
