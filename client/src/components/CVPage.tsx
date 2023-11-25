@@ -23,8 +23,8 @@ const CVPage: FC<CVPageType> = ({ key, imageURLPrim, imageURLSec }) => {
         setStyle('linkedin')
     }, []);
 
-    const gridBoxesSide = gridBoxGenerator(numBoxesSide);
-    const grifBoxesMain = gridBoxGenerator(numBoxesMain);
+    const gridBoxesSide = gridBoxGenerator({n: numBoxesSide, boxHeaderShow: false});
+    const grifBoxesMain = gridBoxGenerator({n: numBoxesMain});
 
     /* for (let i = 0; i < gridBoxes.length; i += 2) {
         [gridBoxes[i], gridBoxes[i+1]] = [gridBoxes[i+1], gridBoxes[i]];
