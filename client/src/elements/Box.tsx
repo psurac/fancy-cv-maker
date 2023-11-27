@@ -35,7 +35,7 @@ const Box: FC<BoxType> = ({ className, boxHeaderShow = true }) => {
     }, [item, setItem, innerHtml]);
 
     return (
-        <div className={className ? className : 'box-container'} ref={drop} key={key}>
+        <div className={`${className ? className : 'box-container'} ${editable ? 'box-editable' : ''}`} ref={drop} key={key}>
             <div className="edit-box">
                 <button type="button" value="delete" onClick={() => setItem('')}>Delete</button>
                 <button type="button" value="edit" onClick={() => setEditable(!editable)}>Edit</button>

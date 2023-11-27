@@ -61,5 +61,9 @@
             min-width: 100%;
             min-height: 100%;
         }
+        .box-editable {
+            border: 1px solid $prim2-color;
+            border-radius: 10px;
+        }
     }
 }
