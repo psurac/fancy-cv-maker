@@ -121,10 +121,20 @@
         .box-header {
             display: flex;
             flex-direction: row;
-            justify-content: end;
+            justify-content: space-between;
             height: 30px;
             width: 100%;
             border-bottom: .5px solid $lightgrey;
+            text-align: bottom;
+
+            .box-header-text {
+                padding: 3px;
+            }
+            .box-header-symbols {
+                display: flex;
+                flex-direction: row;
+                justify-content: end;
+            }
         }
         .edit-box {
             display: none;

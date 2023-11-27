@@ -6,15 +6,20 @@ type BoxHeaderType = {
     className: string
 }
 
-const BoxHeader: FC<BoxHeaderType> = ({className}) => {
+const BoxHeader: FC<BoxHeaderType> = ({ className }) => {
     const size: number = 20;
     return (
         <div className={className}>
-            <div className='symbole-group'>
-                <HiDotsHorizontal size={size} />
-            </div>
-            <div className='symbole-group'>
-                <IoIosClose size={size} />
+            <h5 contentEditable={true} suppressContentEditableWarning={true}>
+                Insert Header
+            </h5>
+            <div className='box-header-symbols'>
+                <div className='symbole-group'>
+                    <HiDotsHorizontal size={size} />
+                </div>
+                <div className='symbole-group'>
+                    <IoIosClose size={size} />
+                </div>
             </div>
         </div>
     )
