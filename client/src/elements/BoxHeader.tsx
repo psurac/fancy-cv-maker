@@ -10,7 +10,7 @@ const BoxHeader: FC<BoxHeaderType> = ({ className }) => {
     const size: number = 20;
     return (
         <div className={className}>
-            <h5 contentEditable={true} suppressContentEditableWarning={true}>
+            <h5 className='box-header-text' contentEditable={true} suppressContentEditableWarning={true}>
                 Insert Header
             </h5>
             <div className='box-header-symbols'>

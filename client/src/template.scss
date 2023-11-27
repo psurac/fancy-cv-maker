@@ -8,6 +8,10 @@ $sec3-color: rgba(217, 240, 255, 1);
 $breakpoint-medium: 768px;
 $breakpoint-larg: 992px;
 
+ul, ol {
+    list-style-position: inside;
+}
+
 @mixin small-screen {
     @media (width <= $breakpoint-medium) {
         @content;

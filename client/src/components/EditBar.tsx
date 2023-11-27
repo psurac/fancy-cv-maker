@@ -68,7 +68,7 @@ const EditBar: FC<EditBarProps> = ({ setPageNumber, setImageURLPrim, setImageURL
                     </span>
                 </label>
             </form>
-            <ElementContainer />
+            <ElementContainer className='element-container'/>
             <div>
                 <span>Primary Picture:</span>
                 <ImageUploader setImageURL={setImageURLPrim} />

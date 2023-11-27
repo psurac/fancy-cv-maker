@@ -5,9 +5,13 @@ import Image from '../elements/Image';
 import ListOL from '../elements/ListOL';
 import Text from '../elements/Text';
 
-const ElementContainer: FC = () => {
+type ElementContainerType = {
+    className?: string
+}
+
+const ElementContainer: FC<ElementContainerType> = ({className}) => {
     return (
-        <div>
+        <div className={className}>
             <DragWrapper child={ListUO} />
             <DragWrapper child={Image} />
             <DragWrapper child={ListOL} />
