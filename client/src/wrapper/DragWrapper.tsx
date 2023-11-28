@@ -1,5 +1,5 @@
-import { Dispatch, FC, FocusEventHandler, SetStateAction } from 'react';
-import { createElement, memo, useCallback } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
+import { createElement, memo } from 'react';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants/ItemTypes';
 import { GenElementType } from '../types/type';
@@ -16,7 +16,6 @@ interface DragWrapperType {
 const DragWrapper: FC<DragWrapperType> = (
     { child, props, inBox = false, editable = false, setItem, setInnerHtml }
 ) => {
-
     const [, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
         item: { child },
@@ -29,9 +28,12 @@ const DragWrapper: FC<DragWrapperType> = (
         }
     }))
 
-    const onContentBlur = useCallback<FocusEventHandler<HTMLDivElement>>((event) => {
-        console.log(event.currentTarget.innerHTML);
-        setInnerHtml && (setInnerHtml(event.currentTarget.innerHTML));
+    const [divElement, setDivElement] = useState<HTMLDivElement>();
+
+    useEffect(() => {
+        divElement && drag(divElement);
+        divElement && console.log(divElement.innerHTML);
+        divElement && setInnerHtml && (setInnerHtml(divElement.innerHTML));
     }, [editable]);
 
     return (
@@ -39,7 +41,10 @@ const DragWrapper: FC<DragWrapperType> = (
             ref={drag}
             contentEditable={editable}
             suppressContentEditableWarning={true}
-            onBlur={onContentBlur}
+            onChange={(event) => {
+                setDivElement(event.currentTarget);
+                divElement && drag(divElement);
+            }}
         >
             {child && createElement(child, props)}
         </div>
