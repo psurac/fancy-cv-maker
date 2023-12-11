@@ -32,7 +32,6 @@ const DragWrapper: FC<DragWrapperType> = (
 
     useEffect(() => {
         divElement && drag(divElement);
-        divElement && console.log(divElement.innerHTML);
         divElement && setInnerHtml && (setInnerHtml(divElement.innerHTML));
     }, [editable]);
 
@@ -41,7 +40,7 @@ const DragWrapper: FC<DragWrapperType> = (
             ref={drag}
             contentEditable={editable}
             suppressContentEditableWarning={true}
-            onChange={(event) => {
+            onInput={(event) => {
                 setDivElement(event.currentTarget);
                 divElement && drag(divElement);
             }}
